@@ -1,0 +1,43 @@
+syntax = "proto3";
+option java_multiple_files = true;
+option java_package = "service";
+option java_outer_classname = "ChatBot";
+
+package chatbot;
+
+service ChatBot {
+    rpc ListBot(ListBotRequest) returns (ListBotResponse);
+    rpc ChatToBot (stream ChatBotRequest) returns (stream ChatBotResponse);
+}
+
+message Bot {
+    string code = 1;
+    string name = 2;
+}
+
+message ListBotRequest {}
+
+message ListBotResponse {
+    repeated Bot bots = 1;
+}
+
+message ChatBotConfig {
+    string bot_code = 1;
+}
+
+message ChatBotRequest {
+    ChatBotConfig chatbot_config = 1;
+    string text = 2;
+    bool end = 3;
+}
+
+message ChatBotResponse {
+    Status status = 1;
+    string text = 2;
+    bool end = 3;
+}
+
+message Status {
+    int32 code = 1;
+    string message = 2;
+}

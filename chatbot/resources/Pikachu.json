@@ -1,0 +1,689 @@
+{
+    "id":0,
+    "function":"TRA CỨU THÔNG TIN HỢP ĐỒNG MUA BÁN ĐIỆN",
+    "name":"Pikachu",
+    "attribute":[
+        {
+            "name":"ATT_TODAY",
+            "value":""
+        },
+        {
+            "name":"ATT_DAY",
+            "value":""
+        },
+        {
+            "name":"ATT_MONTH",
+            "value":""
+        },
+        {
+            "name":"ATT_YEAR",
+            "value":""
+        },
+        {
+            "name":"ATT_PHONE",
+            "value":""
+        },
+        {
+            "name":"ATT_ADDRESS",
+            "value":""
+        },
+        {
+            "name":"ATT_BOOKING_DATE",
+            "value":""
+        },
+        {
+            "name":"ATT_BOOKING_TIME",
+            "value":""
+        },
+        {
+            "name":"ATT_VANDE",
+            "value":""
+        },
+        {
+            "name":"ATT_THUTUC",
+            "value":""
+        },
+        {
+            "name":"ATT_NAME",
+            "value":""
+        }
+    ],
+    "script":[
+        {
+            "id":0,
+            "type":"start",
+            "regex":[
+                {
+                    "text":".*?hợp đồng.*?điện"
+                }
+            ],
+            "content":"hợp đồng điện",
+            "next_id":1
+        },
+        {
+            "id":1,
+            "type":"speak",
+            "content":"cung cấp thông tin",
+            "speak":[
+                {
+                    "text":"Để phục vụ bạn chi tiết hơn, bạn vui lòng cung cấp thêm thông tin cá nhân."
+                },
+                {
+                    "text":"Bạn có thể cung cấp thông tin cá nhân cho Chu chứ ?"
+                }
+            ],
+            "att_name":"",
+            "next_id":2
+        },
+        {
+            "id":2,
+            "type":"choose",
+            "content":"chọn có hoặc không",
+            "att_name":"",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":"không"
+                        },
+                        {
+                            "text":"không.*?được"
+                        },
+                        {
+                            "text":".{1,6}không.{1,6}"
+                        }
+                    ],
+                    "content":"không",
+                    "next_id":6
+                },
+                {
+                    "regex":[
+                        {
+                            "text":"có"
+                        },
+                        {
+                            "text":".*?(có|được|đồng ý|nhất trí).*?"
+                        }
+                    ],
+                    "content":"có",
+                    "next_id":3
+                }
+            ]
+        },
+        {
+            "id":3,
+            "type":"speak",
+            "content":"nhập số điện thoại",
+            "speak":[
+                {
+                    "text":"Mời bạn đọc số điện thoại"
+                },
+                {
+                    "text":"Bạn đọc số điện thoại đi ạ"
+                }
+            ],
+            "next_id":4
+        },
+        {
+            "id":4,
+            "type":"input",
+            "content":"nhập số điện thoại",
+            "data_type":"NUMBER",
+            "att_name":"ATT_PHONE",
+            "except":1,
+            "next_id":16
+        },
+        {
+            "id":5,
+            "type":"speak",
+            "content":"cảm ơn",
+            "speak":[
+                {
+                    "text":"Cảm ơn bạn"
+                }
+            ],
+            "next_id":6
+        },
+        {
+            "id":6,
+            "type":"speak",
+            "content":"cảm ơn",
+            "speak":[
+                {
+                    "text":"Bạn cần chúng tôi tư vấn gì về hợp đồng mua bán điện? Thay đổi thông tin, Gia hạn, Chấm dứt, Tạm ngừng sử dụng điện, hay Cấp lại?"
+                }
+            ],
+            "next_id":7
+        },
+        {
+            "id":7,
+            "type":"choose",
+            "content":"chọn ván đề cần tư vấn",
+            "att_name":"ATT_VANDE",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":".*?(thay|đổi|thay đổi).*?"
+                        }
+                    ],
+                    "content":"thay đổi thông tin",
+                    "next_id":24
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?gia hạn.*?"
+                        }
+                    ],
+                    "content":"gia hạn hợp đồng",
+                    "next_id":24
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?chấm dứt.*?"
+                        }
+                    ],
+                    "content":"chấm dứt hợp đồng",
+                    "next_id":24
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?tạm (ngừng|ngưng|dừng).*?"
+                        }
+                    ],
+                    "content":"tạm ngưng sử dụng điện",
+                    "next_id":24
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?cấp lại.*?"
+                        }
+                    ],
+                    "content":"cấp lại hợp đồng",
+                    "next_id":24
+                }
+            ]
+        },
+        {
+            "id":8,
+            "type":"solve",
+            "content":"show ATT_BOOKING_TIME",
+            "solve":"show",
+            "data_type": "TIME",
+            "attribute":"ATT_BOOKING_TIME",
+            "list_resp":[
+                {
+                    "text":"OK",
+                    "next_id":35
+                }
+            ]
+        },
+        {
+            "id":9,
+            "type":"solve",
+            "content":"save ATT_BOOKING_DATE",
+            "solve":"save",
+            "data_type": "DATE",
+            "attribute":"ATT_BOOKING_DATE",
+            "list_resp":[
+                {
+                    "text":"OK",
+                    "next_id":35
+                }
+            ]
+        },
+        {
+            "id":10,
+            "type":"solve",
+            "content":"save ATT_BOOKING_TIME",
+            "solve":"save",
+            "data_type": "TIME",
+            "attribute":"ATT_BOOKING_TIME",
+            "list_resp":[
+                {
+                    "text":"OK",
+                    "next_id":35
+                }
+            ]
+        },
+        {
+            "id":11,
+            "type":"speak",
+            "content":"trình bày về Tạm ngừng sử dụng điện",
+            "speak":[
+                {
+                    "text":"Về việc Tạm ngừng sử dụng điện .. blah .. blah"
+                }
+            ],
+            "next_id":13
+        },
+        {
+            "id":12,
+            "type":"speak",
+            "content":"trình bày về Cấp lại hợp đồng điện",
+            "speak":[
+                {
+                    "text":"Về việc cấp lại hợp đồng điện .. blah .. blah"
+                }
+            ],
+            "next_id":13
+        },
+        {
+            "id":13,
+            "type":"speak",
+            "content":"Hỏi gì nữa không ?",
+            "speak":[
+                {
+                    "text":"Bạn cần mình tư vấn điều gì nữa không?"
+                }
+            ],
+            "next_id":14
+        },
+        {
+            "id":14,
+            "type":"choose",
+            "content":"chọn có hoặc không",
+            "att_name":"",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":"không"
+                        },
+                        {
+                            "text":"không.*?được"
+                        },
+                        {
+                            "text":".{1,6}không.{1,6}"
+                        }
+                    ],
+                    "content":"không",
+                    "next_id":15
+                },
+                {
+                    "regex":[
+                        {
+                            "text":"có"
+                        },
+                        {
+                            "text":".*?(có|được|đồng ý|nhất trí).*?"
+                        }
+                    ],
+                    "content":"có",
+                    "next_id":6
+                }
+            ]
+        },
+        {
+            "id":15,
+            "type":"speak",
+            "content":"Tạm biệt ?",
+            "speak":[
+                {
+                    "text":"Cảm ơn bạn, chúc bạn một ngày tốt lành!"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":16,
+            "type":"solve",
+            "content":"lấy thông tin số điện thoại",
+            "solve":"save",
+            "data_type": "PHONE",
+            "attribute":"ATT_PHONE",
+            "list_resp":[
+                {
+                    "text":"EXITS",
+                    "next_id":18
+                },
+                {
+                    "text":"NEW",
+                    "next_id":19
+                }
+            ]
+        },
+        {
+            "id":17,
+            "type":"speak",
+            "content":"Ha Ha",
+            "speak":[
+                {
+                    "text":"Ha Ha"
+                }
+            ],
+            "next_id":15
+        },
+        {
+            "id":18,
+            "type":"speak",
+            "content":"Thông tin của bạn",
+            "speak":[
+                {
+                    "text":"Thông tin của bạn <ATT_PHONE> <ATT_ADDRESS>"
+                }
+            ],
+            "next_id":5
+        },
+        {
+            "id":19,
+            "type":"speak",
+            "content":"Bạn có sẵn sàng cung cấp địa chỉ?",
+            "speak":[
+                {
+                    "text":"Bạn có sẵn sàng cung cấp địa chỉ/ khu vực bạn sinh sống không?"
+                }
+            ],
+            "next_id":20
+        },
+        {
+            "id":20,
+            "type":"choose",
+            "content":"chọn có hoặc không",
+            "att_name":"",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":"không"
+                        },
+                        {
+                            "text":"không.*?được"
+                        },
+                        {
+                            "text":".{1,6}không.{1,6}"
+                        }
+                    ],
+                    "content":"không",
+                    "next_id":6
+                },
+                {
+                    "regex":[
+                        {
+                            "text":"có"
+                        },
+                        {
+                            "text":".*?(có|được|đồng ý|nhất trí).*?"
+                        }
+                    ],
+                    "content":"có",
+                    "next_id":21
+                }
+            ]
+        },
+        {
+            "id":21,
+            "type":"speak",
+            "content":"Mời bạn đọc địa chỉ",
+            "speak":[
+                {
+                    "text":"Mời bạn đọc địa chỉ"
+                }
+            ],
+            "next_id":22
+        },
+        {
+            "id":22,
+            "type":"input",
+            "content":"nhập địa chỉ",
+            "data_type":"ADDRESS",
+            "att_name":"ATT_ADDRESS",
+            "except":1,
+            "next_id":23
+        },
+        {
+            "id":23,
+            "type":"solve",
+            "content":"save ATT_ADDRESS",
+            "solve":"save",
+            "data_type": "ADDRESS",
+            "attribute":"ATT_ADDRESS",
+            "list_resp":[
+                {
+                    "text":"EXITS",
+                    "next_id":5
+                },
+                {
+                    "text":"NEW",
+                    "next_id":5
+                }
+            ]
+        },
+        {
+            "id":24,
+            "type":"speak",
+            "content":"Bạn muốn chúng tôi tư vấn thủ tục nào",
+            "speak":[
+                {
+                    "text":"Bạn muốn chúng tôi tư vấn thủ tục nào của vấn đề <ATT_VANDE>"
+                }
+            ],
+            "next_id":25
+        },
+        {
+            "id":25,
+            "type":"speak",
+            "content":"Chọn thủ tục",
+            "speak":[
+                {
+                    "text":"Kênh tiếp nhận, Hồ sơ, Chi phí hay Thời gian giải quyết?"
+                }
+            ],
+            "next_id":26
+        },
+        {
+            "id":26,
+            "type":"choose",
+            "content":"các thủ tục",
+            "att_name":"ATT_THUTUC",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":".*?kênh tiếp nhận.*?"
+                        }
+                    ],
+                    "content":"kênh tiếp nhận",
+                    "next_id":28
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?hồ sơ.*?"
+                        }
+                    ],
+                    "content":"hồ sơ",
+                    "next_id":28
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?chi phí.*?"
+                        }
+                    ],
+                    "content":"chi phí",
+                    "next_id":28
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?thời gian.*?"
+                        }
+                    ],
+                    "content":"thời gian",
+                    "next_id":28
+                }
+            ]
+        },
+        {
+            "id":27,
+            "type":"solve",
+            "content":"show INFO",
+            "solve":"save",
+            "data_type": "STR",
+            "attribute":"ATT_NAME",
+            "list_resp":[
+                {
+                    "text":"EXITS",
+                    "next_id":28
+                },
+                {
+                    "text":"NEW",
+                    "next_id":28
+                }
+            ]
+        },
+        {
+            "id":28,
+            "type":"speak",
+            "content":"Nhắc lại yêu cầu",
+            "speak":[
+                {
+                    "text":"Thông tin về thủ tục <ATT_THUTUC> của vấn đề <ATT_VANDE> trong hợp đồng mua bán điện như sau: blah ..."
+                }
+            ],
+            "next_id":2
+        },
+        {
+            "id":29,
+            "type":"speak",
+            "content":"Đặt lịch hẹn?",
+            "speak":[
+                {
+                    "text":"Bạn có muốn đặt lịch hẹn không?"
+                }
+            ],
+            "next_id":30
+        },
+        {
+            "id":30,
+            "type":"choose",
+            "content":"chọn có hoặc không",
+            "att_name":"",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":"không"
+                        },
+                        {
+                            "text":"không.*?được"
+                        },
+                        {
+                            "text":".{1,6}không.{1,6}"
+                        }
+                    ],
+                    "content":"không",
+                    "next_id":13
+                },
+                {
+                    "regex":[
+                        {
+                            "text":"có"
+                        },
+                        {
+                            "text":".*?(có|được|đồng ý|nhất trí).*?"
+                        }
+                    ],
+                    "content":"có",
+                    "next_id":31
+                }
+            ]
+        },
+        {
+            "id":31,
+            "type":"speak",
+            "content":"Chọn ngày",
+            "speak":[
+                {
+                    "text":"Mời bạn chọn ngày"
+                }
+            ],
+            "next_id":32
+        },
+        {
+            "id":32,
+            "type":"input",
+            "content":"chọn ngày",
+            "data_type":"DATE",
+            "att_name":"ATT_BOOKING_DATE",
+            "except":1,
+            "next_id":16
+        },
+        {
+            "id":33,
+            "type":"speak",
+            "content":"Chọn giờ",
+            "speak":[
+                {
+                    "text":"Mời bạn chọn giờ"
+                }
+            ],
+            "next_id":34
+        },
+        {
+            "id":34,
+            "type":"input",
+            "content":"chọn giờ",
+            "data_type":"TIME",
+            "att_name":"ATT_BOOKING_TIME",
+            "except":1,
+            "next_id":10
+        },
+        {
+            "id":35,
+            "type":"speak",
+            "content":"Nhắc lại lịch",
+            "speak":[
+                {
+                    "text":"Bạn đặt lịch hẹn vào <ATT_BOOKING_TIME> ngày <ATT_BOOKING_DATE>"
+                }
+            ],
+            "next_id":13
+        },
+        {
+            "id":36,
+            "type":"speak",
+            "content":"Nhắc lại lịch",
+            "speak":[
+                {
+                    "text":"Trong trường hợp không cần thiết, bạn có thể lựa chọn Không để nhận được thông tin tổng quan."
+                }
+            ],
+            "next_id":37
+        },
+        {
+            "id":37,
+            "type":"speak",
+            "content":"Bạn có sẵn sàng cung cấp số điện thoại không?",
+            "speak":[
+                {
+                    "text":"Bạn có sẵn sàng cung cấp số điện thoại không?"
+                }
+            ],
+            "next_id":2
+        },
+        {
+            "id":38,
+            "type":"solve",
+            "content":"check PHONE",
+            "solve":"check",
+            "data_type": "PHONE",
+            "attribute":"ATT_PHONE",
+            "list_resp":[
+                {
+                    "text":"EXITS",
+                    "next_id":27
+                },
+                {
+                    "text":"NEW",
+                    "next_id":27
+                }
+            ]
+        }
+    ]
+}

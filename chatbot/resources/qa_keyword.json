@@ -1,0 +1,26 @@
+[
+  {
+    "text": ["dùng thế nào","thế nào","tác dụng không","tác dụng thế nào","tốt thế nào"],
+    "type_quetion": "qu_what"
+  },
+  {
+    "text": ["sản xuất","sản xuất ở đâu","xuất xứ","xuất xứ thế nào"],
+    "type_quetion": "qu_from"
+  },
+  {
+    "text": ["bao lâu","lâu không","trong bao lâu"],
+    "type_quetion": "qu_when_done"
+  },
+  {
+    "text": ["cách sử dụng","dùng như thế nào","dùng thế nào","liều uống thế nào","mấy viên","như thế nào","sử dụng thế nào","uống thế nào"],
+    "type_quetion": "qu_how"
+  },
+  {
+    "text": ["bao nhiêu tiền","có đắt không","giá bao nhiêu","giá thế nào","hết bao nhiêuỉ"],
+    "type_quetion": "qu_how_much"
+  },
+  {
+    "text": ["chỗ nào", "muốn mua", "ở đâu", "ở đâu nhỉ"],
+    "type_quetion": "qu_where"
+  }
+]

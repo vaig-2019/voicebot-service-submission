@@ -1,0 +1,44 @@
+[
+  {
+    "question": "tràng phục linh mua ở đâu?",
+    "answer": "Dạ hiện tại công ty dược phẩm Lê Bảo có 2 cơ sở chính tại số 1 Phạm Văn Bạch, Yên Hòa, Hà Nội và số 2 PVB, HN ạ, quý khách mua ở cửa hàng bán lẻ khác chú ý xem kỹ nhãn mác của sản phẩm ạ.",
+    "type_quetion": "qu_where",
+    "medicine_name": "tràng phục linh"
+  },
+  {
+    "question": "tràng phục linh giá bao nhiêu ?",
+    "answer": "Dạ hiện tại giá 1 hộp tràng phục linh 10 vỉ là 198.000 đồng nếu mua trực tiếp tại chi nhánh công ty sẽ được tặng phiếu mua 20.000",
+    "type_quetion": "qu_how_much",
+    "medicine_name": "tràng phục linh"
+  },
+  {
+    "question": "tràng phục linh liều uống thế nào?",
+    "answer": "Về cách dùng tràng phục linh, sử dụng 4 viên/ ngày; chia 2 lần. Nên uống trước bữa ăn 30 phút hoặc sau khi ăn 1 giờ. Nên sử dụng liên tục một đợt từ 3 – 6 tháng để có kết quả tốt nhất ạ",
+    "type_quetion": "qu_how",
+    "medicine_name": "tràng phục linh"
+  },
+  {
+    "question": "tràng phục linh uống khoảng bao lâu thì khỏi?",
+    "answer": "Dạ Nên sử dụng liên tục một đợt từ 3 – 6 tháng để có kết quả tốt nhất ạ.",
+    "type_quetion": "qu_when_done",
+    "medicine_name": "tràng phục linh"
+  },
+  {
+    "question": "công ty sản xuất",
+    "answer": "Về xuất xứ của thuốc tràng phục linh .. blah",
+    "type_quetion": "qu_from",
+    "medicine_name": "tràng phục linh"
+  },
+  {
+    "question": "tác dụng cuả tràng phục linh",
+    "answer": "Tràng phục linh Giúp cân bằng hệ vi khuẩn có ích đường ruột, tăng sức đề kháng, tái tạo niêm mạc đại tràng và tăng cường sức khỏe hệ tiêu hóa. Hỗ trợ điều trị hội chứng ruột dễ kích thích, viêm đại tràng cấp và mạn tính, đi ngoài nhiều lần, phân sống, phân nát.",
+    "type_quetion": "qu_what",
+    "medicine_name": "tràng phục linh"
+  },
+  {
+    "question": "tác dụng cuả tràng phục linh",
+    "answer": "Tràng phục linh Giúp cân bằng hệ vi khuẩn có ích đường ruột, tăng sức đề kháng, tái tạo niêm mạc đại tràng và tăng cường sức khỏe hệ tiêu hóa. Hỗ trợ điều trị hội chứng ruột dễ kích thích, viêm đại tràng cấp và mạn tính, đi ngoài nhiều lần, phân sống, phân nát.",
+    "type_quetion": "qu_what",
+    "medicine_name": "tràng phục linh"
+  }
+]

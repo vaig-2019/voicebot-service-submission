@@ -1,0 +1,352 @@
+{
+    "id":0,
+    "function":"Tổng đài tư vấn công ty dược phẩm",
+    "name":"Tchai",
+    "attribute":[
+        {
+            "name":"COMPANY",
+            "value":"Công ty Dược phẩm Lê Bảo"
+        },
+        {
+            "name":"UNAME",
+            "value":"Nguyễn Văn Nam"
+        },
+        {
+            "name":"UNAME_SORT",
+            "value":"Nam"
+        },
+        {
+            "name":"BOT_NAME",
+            "value":"Trâm Anh"
+        },
+        {
+            "name":"X",
+            "value":"1800.1306"
+        },
+        {
+            "name":"DATE_MISS",
+            "value":"11/7/2019"
+        },
+        {
+            "name":"TIME_MISS",
+            "value":"10:00"
+        },
+        {
+            "name":"BOOKING_TIME",
+            "value":""
+        },
+        {
+            "name":"TUVAN",
+            "value":""
+        },
+        {
+            "name":"TRALOI",
+            "value":""
+        }
+    ],
+    "script":[
+        {
+            "id":0,
+            "type":"start",
+            "regex":[
+                {
+                    "text":"xin chào"
+                },
+                {
+                    "text": ".*"
+                }
+            ],
+            "content":"1800.1506",
+            "next_id":1
+        },
+        {
+            "id":1,
+            "type":"speak",
+            "content":"cung cấp thông tin",
+            "speak":[
+                {
+                    "text":"Chào quý khách,​ em là <BOT_NAME> robot tư vấn của <COMPANY>. Không biết quý khách cần hỏi thông tin cụ thể gì về sức khỏe hoặc sản phẩm bên em ạ"
+                }
+            ],
+            "next_id":9
+        },
+        {
+            "id":2,
+            "type":"choose",
+            "content":"3 tình huống : 4 tình huống (không nhớ, người nhà gọi, đang bận, có nhu cầu)",
+            "att_name":"TUVAN",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":".*?không nhớ.*?"
+                        },
+                        {
+                            "text":".*?không cần.*?"
+                        },
+                        {
+                            "text":".*?không biết.*?"
+                        },
+                        {
+                            "text":".*?quên rồi.*?"
+                        },
+                        {
+                            "text":"WIT|user_rejected"
+                        }
+                    ],
+                    "content":"không nhớ",
+                    "next_id":3
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?người nhà gọi.*?"
+                        },
+                        {
+                            "text":".*?(bố|mẹ|vợ|chồng) gọi.*?"
+                        },
+                        {
+                            "text":"WIT|not_me_call"
+                        }
+                    ],
+                    "content":"người nhà gọi",
+                    "next_id":4
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*(bận|đi đường|ngủ|họp|đi chợ|lái xe).*?"
+                        },
+                        {
+                            "text":"WIT|user_busy"
+                        }
+                    ],
+                    "content":"đang bận",
+                    "next_id":5
+                },
+                {
+                    "regex":[
+                        {
+                            "text":"WIT|user_question"
+                        }
+                    ],
+                    "content":"",
+                    "next_id":10
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*"
+                        }
+                    ],
+                    "content":"có nhu cầu",
+                    "next_id":8
+                }
+            ]
+        },
+        {
+            "id":3,
+            "type":"speak",
+            "content":"Kết thúc",
+            "speak":[
+                {
+                    "text":"Dạ, nếu quý khách không cần tư vấn thì em xin phép. Lúc nào có nhu cầu cần được tư vấn quý khách vui lòng gọi lại tổng đài <X> vào giờ hành chính từ 8 - 17h các ngày trong tuần ạ. Chúc quý khách 1 ngày tốt lành"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":4,
+            "type":"speak",
+            "content":"Kết thúc",
+            "speak":[
+                {
+                    "text":"Dạ, vậy quý khách có thể nhắn với người nhà vui lòng gọi lại tổng đài <X> vào giờ hành chính từ 8 - 17h các ngày trong tuần ạ. Chúc quý khách 1 ngày tốt lành"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":5,
+            "type":"speak",
+            "content":"Kết thúc",
+            "speak":[
+                {
+                    "text":"​Dạ, vậy quý khách rảnh vào lúc nào em sẽ gọi lại sau ạ"
+                }
+            ],
+            "next_id":6
+        },
+        {
+            "id":6,
+            "type":"input",
+            "content":"Nhập giờ hẹn",
+            "data_type":"TIME",
+            "att_name":"BOOKING_TIME",
+            "except":16,
+            "next_id":7
+        },
+        {
+            "id":7,
+            "type":"speak",
+            "content":"Nhắc hẹn, tạm biệt",
+            "speak":[
+                {
+                    "text":"Em đã ghi nhận thông tin, đến <BOOKING_TIME> em sẽ gọi lại quý khách nhớ chú ý nghe điện thoại nhé. Chúc quý khách 1 ngày tốt lành"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":8,
+            "type":"speak",
+            "content":"Cần gì?",
+            "speak":[
+                {
+                    "text":"Quý khách cần hỏi thông tin cụ thể gì ạ"
+                }
+            ],
+            "next_id":9
+        },
+        {
+            "id":9,
+            "type":"input",
+            "content":"thông tin cần tư vấn",
+            "data_type":"STR",
+            "att_name":"TUVAN",
+            "except":0,
+            "next_id":10
+        },
+        {
+            "id":10,
+            "type":"solve",
+            "content":"thử trả lời",
+            "solve":"qa",
+            "data_type": "STR",
+            "attribute":"TUVAN",
+            "list_resp":[
+                {
+                    "text":"EXITS",
+                    "next_id": 12
+                },
+                {
+                    "text": "NEW",
+                    "next_id": 11
+                }
+            ]
+        },
+        {
+            "id":11,
+            "type":"speak",
+            "content":"Hẹn giờ",
+            "speak":[
+                {
+                    "text":"Dạ, em đã nhận được thông tin. Em sẽ chuyển chuyên gia gọi điện tư vấn trực tiếp.Không biết có thể gọi lại cho quý khách vào lúc nào thì thuận tiện ạ"
+                }
+            ],
+            "next_id":6
+        },
+        {
+            "id":12,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"<TRALOI>"
+                }
+            ],
+            "next_id":13
+        },
+        {
+            "id":13,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ, quý khách có cần tư vấn gì thêm không ạ"
+                }
+            ],
+            "next_id":14
+        },
+        {
+            "id":14,
+            "type":"choose",
+            "content":"chọn có hoặc không",
+            "att_name":"",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":"không"
+                        },
+                        {
+                            "text":"không.*?được"
+                        },
+                        {
+                            "text":".{1,6}không.{1,6}"
+                        }
+                    ],
+                    "content":"không",
+                    "next_id":15
+                },
+                {
+                    "regex":[
+                        {
+                            "text":"có"
+                        },
+                        {
+                            "text":".*?(có|được|đồng ý|nhất trí).*?"
+                        },
+                        {
+                            "text": ".*?oke.*?"
+                        }
+                    ],
+                    "content":"có",
+                    "next_id":8
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?"
+                        }
+                    ],
+                    "content":"hỏi lại",
+                    "next_id":17
+                }
+            ]
+        },
+        {
+            "id":15,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ vâng, Lúc nào có nhu cầu cần được tư vấn quý khách vui lòng gọi lại tổng đài <X> vào giờ hành chính từ 8 - 17h các ngày trong tuần ạ. Tạm biệt quý khách. Chúc quý khách 1 ngày tốt lành"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":16,
+            "type":"speak",
+            "content":"Nhắc lại lịch hẹn",
+            "speak":[
+                {
+                    "text":"Anh nhắc lại giờ hẹn giúp em ạ, em chưa rõ"
+                }
+            ],
+            "next_id":6
+        },
+        {
+            "id":17,
+            "type":"speak",
+            "content":"nhắc chọn lại",
+            "speak":[
+                {
+                    "text":"Dạ có hay không cần tư vấn thêm vậy ạ"
+                }
+            ],
+            "next_id":14
+        }
+    ]
+}

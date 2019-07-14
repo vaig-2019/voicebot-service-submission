@@ -1,0 +1,562 @@
+{
+    "id":0,
+    "function":"Tổng đài tư vấn công ty dược phẩm",
+    "name":"Trâm Anh",
+    "attribute":[
+        {
+            "name":"COMPANY",
+            "value":"Công ty Dược phẩm Voice Bot"
+        },
+        {
+            "name":"BUY_TIME",
+            "value":"ngày 5/6/2019"
+        },
+        {
+            "name":"UNAME",
+            "value":"Lê Văn Bảo"
+        },
+        {
+            "name":"UNAME_SORT",
+            "value":"Nam"
+        },
+        {
+            "name":"BOT_NAME",
+            "value":"Trâm Anh"
+        },
+        {
+            "name":"X",
+            "value":"18001306"
+        },
+        {
+            "name":"DATE_MISS",
+            "value":"11/7/2019"
+        },
+        {
+            "name":"TIME_MISS",
+            "value":"10:00"
+        },
+        {
+            "name":"BOOKING_TIME",
+            "value":""
+        },
+        {
+            "name":"TUVAN",
+            "value":""
+        },
+        {
+            "name":"TRALOI",
+            "value":""
+        },
+        {
+            "name": "ITEM",
+            "value": "tràng phục linh"
+        },
+        {
+            "name": "HUONGDAN",
+            "value": "Sản phẩm tràng phục linh của anh sử dụng 4 viên/ ngày, chia 2 lần. Nên uống trước bữa ăn 30 phút hoặc sau khi ăn 1 giờ. Nên sử dụng liên tục một đợt từ 3 – 6 tháng để có kết quả tốt nhất ạ. Hiện tại anh đã dùng được 2 tháng, anh uống thuốc điều độ để đạt sức khỏe tốt nhất nhé"
+        }
+    ],
+    "script":[
+        {
+            "id":0,
+            "type":"start",
+            "regex":[
+                {
+                    "text":"alo"
+                },
+                {
+                    "text":".*?"
+                }
+            ],
+            "content":"18001306",
+            "next_id":1
+        },
+        {
+            "id":1,
+            "type":"speak",
+            "content":"cung cấp thông tin",
+            "speak":[
+                {
+                    "text":"Dạ, em chào anh, em là tư vấn viên <BOT_NAME> của <COMPANY>. Cho em hỏi có phải anh <UNAME> nghe máy đúng không anh "
+                },
+                {
+                    "text":"Dạ, Em là tư vấn viên <BOT_NAME> của <COMPANY>. Cho em hỏi có phải anh <UNAME> không ạ "
+                },
+                {
+                    "text":"Em chào anh, em là tư vấn viên <BOT_NAME> của <COMPANY>. Cho em hỏi có phải anh <UNAME> nghe máy không anh "
+                },
+                {
+                    "text":"Em là tư vấn viên <BOT_NAME> của <COMPANY> ạ. Có phải anh <UNAME> nghe máy không ạ "
+                },
+                {
+                    "text":"Dạ, Em là tư vấn viên <BOT_NAME> của <COMPANY>. Có phải anh <UNAME> không ạ "
+                }
+            ],
+            "next_id":2
+        },
+        {
+            "id":2,
+            "type":"choose",
+            "content":"3 tình huống :",
+            "att_name":"TUVAN",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":".*?không phải.*?"
+                        },
+                        {
+                            "text":".*?(nhầm|lầm|lộn) máy.*?"
+                        },
+                        {
+                            "text":".*?không.{1,5}ơi.*?"
+                        },
+                        {
+                            "text":".*?(nhầm|lầm|lộn) rồi.*?"
+                        },
+                        {
+                            "text":".*?(nhầm|lầm|lộn) nhé.*?"
+                        },
+                        {
+                            "text":".*?sai số.*?"
+                        },
+                        {
+                            "text":".*?sai rồi.*?"
+                        },
+                        {
+                            "text":".*?gọi (nhầm|lầm|lộn).*?"
+                        },
+                        {
+                            "text":".*?gọi sai.*?"
+                        }
+                    ],
+                    "content":"không phải",
+                    "next_id":3
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?(bận|đi đường|ngủ|họp|đi chợ|lái xe|không nghe|làm việc|ra ngoài).*?"
+                        },
+                        {
+                            "text":".*?đang đi.*?"
+                        }
+                    ],
+                    "content":"đang bận",
+                    "next_id":4
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?không có.{1,5}đây.*?"
+                        },
+                        {
+                            "text":".*?không nghe máy.*?"
+                        },
+                        {
+                            "text":".*?không cầm máy.*?"
+                        },
+                        {
+                            "text":".*?là (bạn|mẹ|vợ|chồng|con|bác|chú|cô|dì).*?"
+                        },
+                        {
+                            "text": ".*?đang cầm máy của.*?"
+                        }
+                    ],
+                    "content":"người khác cầm",
+                    "next_id":5
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?(đúng|phải|chuẩn|chính xác).*?"
+                        },
+                        {
+                            "text":".*?anh.{1,7}(đây|này|nè).*?"
+                        },
+                        {
+                            "text":".*?(chính|là).{1,5}anh.*?"
+                        },
+                        {
+                            "text":"ừ em (ơi|ạ|à)"
+                        },
+                        {
+                            "text":"ừ em "
+                        }
+                    ],
+                    "content":"đúng",
+                    "next_id":6
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?"
+                        }
+                    ],
+                    "content":"nhắc lại",
+                    "next_id":1
+                }
+            ]
+        },
+        {
+            "id":3,
+            "type":"speak",
+            "content":"(nhầm|lầm|lộn) máy",
+            "speak":[
+                {
+                    "text":"Em xin lỗi, em lộn số. Nếu quý khách có nhu cầu cần được tư vấn về sản phẩm của <COMPANY>, quý khách vui lòng gọi lại tổng đài <X> vào giờ hành chính, từ 8 đến 15 giờ các ngày trong tuần. Chúc quý khách 1 ngày tốt lành"
+                },
+                {
+                    "text":"Nhầm số ạ, em xin lỗi. Nếu quý khách có nhu cầu cần được tư vấn về sản phẩm của <COMPANY>, quý khách vui lòng gọi lại tổng đài <X> vào giờ hành chính, từ 8 đến 15 giờ các ngày trong tuần. Chúc quý khách 1 ngày tốt lành"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":4,
+            "type":"speak",
+            "content":"Bận",
+            "speak":[
+                {
+                    "text":"Dạ, vậy quý khách rảnh vào lúc để em gọi lại ạ"
+                },
+                {
+                    "text":"Dạ, em có thể gọi lại lúc nào được anh"
+                }
+            ],
+            "next_id":7
+        },
+        {
+            "id":5,
+            "type":"speak",
+            "content":"Không có đây",
+            "speak":[
+                {
+                    "text":"​Dạ vâng, cho em hỏi lúc nào anh <UNAME_SORT> có thể nghe máy được thế ạ"
+                }
+            ],
+            "next_id":7
+        },
+        {
+            "id":6,
+            "type":"speak",
+            "content":"Chính xác",
+            "speak":[
+                {
+                    "text":"​Dạ vâng, vào <BUY_TIME> anh có mua và sử dụng thực phẩm chức năng <ITEM> bên em, anh có cảm thấy hài lòng với sản phẩm không anh"
+                }
+            ],
+            "next_id":9
+        },
+        {
+            "id":7,
+            "type":"input",
+            "content":"Nhập giờ hẹn",
+            "data_type":"TIME",
+            "att_name":"BOOKING_TIME",
+            "except":14,
+            "next_id":8
+        },
+        {
+            "id":7,
+            "type":"speak",
+            "content":"Nhắc hẹn, tạm biệt",
+            "speak":[
+                {
+                    "text":"Em đã ghi nhận thông tin, đến <BOOKING_TIME> em sẽ gọi lại quý khách nhớ chú ý nghe điện thoại nhé"
+                },
+                {
+                    "text":"Em đã ghi nhận thời gian gọi vào <BOOKING_TIME> , quý khách nhớ nghe điện thoại nhé"
+                },
+                {
+                    "text":"Em đã ghi nhận thời gian gọi vào <BOOKING_TIME> , quý khách xác nhận lại giúp em đúng chưa ạ"
+                }
+            ],
+            "next_id":21
+        },
+        {
+            "id":9,
+            "type":"choose",
+            "content":"có hài lòng không?",
+            "att_name":"TUVAN",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":".*?(có|gặp|bị|vướng|dính).{1,10}(vấn đề|triệu chứng|sai|khác|lạ).*?"
+                        },
+                        {
+                            "text":".*?không (hài lòng|ổn|tốt|đúng).*?"
+                        }
+                    ],
+                    "content":"không hài lòng",
+                    "next_id":15
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?hài lòng.*?"
+                        },
+                        {
+                            "text":".*?rất (tốt|ổn|được|hiệu quả|ok).*?"
+                        },
+                        {
+                            "text":".*?rất ổn.*?"
+                        },
+                        {
+                            "text":".*?có tác dụng.*?"
+                        },
+                        {
+                            "text": "có"
+                        },
+                        {
+                            "text": "có chứ"
+                        },
+                        {
+                            "text":".*?không vấn đề.*?"
+                        },
+                        {
+                            "text":".*?miễn.*?"
+                        },
+                        {
+                            "text":".*?không vấn đề.*?"
+                        },
+                        {
+                            "text":".*?ok.*?"
+                        }
+                    ],
+                    "content":"hài lòng",
+                    "next_id":17
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?"
+                        }
+                    ],
+                    "content":"có vấn đề",
+                    "next_id":10
+                }
+            ]
+        },
+        {
+            "id":10,
+            "type":"solve",
+            "content":"thử trả lời",
+            "solve":"qa",
+            "data_type":"STR",
+            "attribute":"TUVAN",
+            "list_resp":[
+                {
+                    "text":"EXITS",
+                    "next_id":12
+                },
+                {
+                    "text":"NEW",
+                    "next_id":11
+                }
+            ]
+        },
+        {
+            "id":11,
+            "type":"speak",
+            "content":"Hẹn giờ",
+            "speak":[
+                {
+                    "text":"Dạ, vấn đề trên em đã ghi nhận lại, em sẽ chuyển đến chuyên gia để gọi điện tư vấn trực tiếp cho anh. Không biết có thể gọi lại cho anh vào lúc nào thì thuận tiện được anh"
+                }
+            ],
+            "next_id":7
+        },
+        {
+            "id":12,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"<TRALOI>"
+                }
+            ],
+            "next_id":13
+        },
+        {
+            "id":13,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ vâng, nếu vậy lúc nào có nhu cầu cần được tư vấn anh vui lòng gọi lại tổng đài <X> vào giờ hành chính, từ 8 đến 15 giờ các ngày trong tuần ạ. Chúc quý khách 1 ngày tốt lành"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":14,
+            "type":"speak",
+            "content":"Nhắc lại lịch hẹn",
+            "speak":[
+                {
+                    "text":"Anh nhắc lại giờ hẹn giúp em với, em chưa rõ"
+                },
+                {
+                    "text":"Anh nhắc lại giờ hẹn chính xác anh ơi"
+                },
+                {
+                    "text":"Giờ hẹn cụ thể chút anh ạ"
+                },
+                {
+                    "text":"Giờ hẹn cụ thể chút để em ghi lại nhé anh"
+                }
+            ],
+            "next_id":7
+        },
+        {
+            "id":15,
+            "type":"speak",
+            "content":"không hài lòng gì ?",
+            "speak":[
+                {
+                    "text":"Dạ vâng, anh không hài lòng về điều gì vậy ạ"
+                },
+                {
+                    "text":"Dạ, anh cho em ghi lại lý do để em phản hồi giúp anh"
+                }
+            ],
+            "next_id":16
+        },
+        {
+            "id":16,
+            "type":"input",
+            "content":"Lý do",
+            "data_type":"STR",
+            "att_name":"TUVAN",
+            "except":0,
+            "next_id":11
+        },
+        {
+            "id":17,
+            "type":"speak",
+            "content":"có Hướng dẫn ?",
+            "speak":[
+                {
+                    "text":"Anh có cần em nhắc lại liệu trình sử dụng thuốc không ạ"
+                },
+                {
+                    "text":"Vậy anh có cần em nhắc lại liệu trình sử dụng thuốc không ạ"
+                }
+            ],
+            "next_id":18
+        },
+        {
+            "id":18,
+            "type":"choose",
+            "content":"chọn có hoặc không",
+            "att_name":"",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":"không"
+                        },
+                        {
+                            "text":"không.*?được"
+                        },
+                        {
+                            "text":".{1,6}không.{1,6}"
+                        },
+                        {
+                            "text":".{1,6}thôi.{1,6}"
+                        },
+                        {
+                            "text":".{1,6}khỏi.{1,6}"
+                        }
+                    ],
+                    "content":"không",
+                    "next_id":13
+                },
+                {
+                    "regex":[
+                        {
+                            "text":"có"
+                        },
+                        {
+                            "text":".*?(có|được|đồng ý|nhất trí).*?"
+                        },
+                        {
+                            "text": ".*?oke.*?"
+                        },
+                        {
+                            "text": ".*?nhắc lại.*?"
+                        }
+                    ],
+                    "content":"có",
+                    "next_id":19
+                }
+            ]
+        },
+        {
+            "id":19,
+            "type":"speak",
+            "content":"Hướng dẫn",
+            "speak":[
+                {
+                    "text":"<HUONGDAN> . Em tư vấn đến đây thôi. Lúc nào có nhu cầu cần được tư vấn anh vui lòng gọi lại tổng đài <X> vào giờ hành chính, từ 8 đến 15 giờ các ngày trong tuần ạ. Chúc quý khách 1 ngày tốt lành"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":20,
+            "type":"speak",
+            "content":"tạm biệt",
+            "speak":[
+                {
+                    "text":"Dạ vâng. Chào tạm biệt quý khách, chúc quý khách một ngày tốt lành"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":21,
+            "type":"choose",
+            "content":"xác nhận",
+            "att_name":"",
+            "list_choose":[
+                {
+
+                    "regex":[
+                        {
+                            "text":".*?(không|sai|không phải|giờ khác|muộn hơn|sớm hơn).*?"
+                        }
+                    ],
+                    "content":"có",
+                    "next_id":14
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?(đúng|phải|chuẩn|chính xác).*?"
+                        },
+                        {
+                            "text":".*?(ừ|ờm|ừm|ừa|được|ok|giờ đó|được)*?"
+                        },
+                        {
+                            "text":"rồi*?"
+                        }
+                    ],
+                    "content":"có",
+                    "next_id":20
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?"
+                        }
+                    ],
+                    "content":"hỏi lại",
+                    "next_id":14
+                }
+            ]
+        }
+    ]
+}

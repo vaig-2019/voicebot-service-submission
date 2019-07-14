@@ -1,0 +1,76 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Callout CMS</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  </head>
+
+  <body>
+    <div class="container" style="padding-top: 100px">
+      <h1 class="text-center">Triển khai cuộc gọi</h1>
+      {% if success %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong> Khởi tạo chiến dịch thành công.
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      {% endif %}
+      <div class="row" style="margin-top: 30px">
+        <div class="col-12">
+          <form action="" method="POST">
+            <div class="form-group">
+              <label for="callCenter">Chiến lược gọi</label>
+              <select class="form-control" id="callCenter" name="callCenter" required>
+                <option value="" selected disabled>Chọn chiến lược</option>
+                {% for phone, name, type in call_centers %}
+                  {% if type == 1 %}
+                  <option value="{{ phone }}">{{ name }}</option>
+                  {% endif %}
+                {% endfor %}
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Tập khách hàng</label>
+              <div class="form-check" style="margin-left: 6px">
+                <input class="form-check-input" type="checkbox" value="" id="select_all">
+                <label class="form-check-label" for="select_all">
+                  Chọn tất cả
+                </label>
+              </div>
+              <div class="form-control" style="position: relative; width: 100%; height: 100px; overflow-y: auto; padding: 5px">
+                {% for id, name, token in clients %}
+                  <div class="form-check">
+                    <input class="form-check-input" type="checkbox" value="" id="{{ id }}" name="{{ id }}">
+                    <label class="form-check-label" for="{{ id }}">
+                      {{ name }}
+                    </label>
+                  </div>
+                {% endfor %}
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary btn-lg btn-block">Triển khai ngay</button>
+          </form>
+        </div>
+      </div>
+    </div> <!-- /container -->
+  </body>
+</html>
+<script>
+  $('#select_all').change(function() {
+    var checkboxes = $(this).closest('form').find(':checkbox');
+    checkboxes.prop('checked', $(this).is(':checked'));
+  });
+</script>
