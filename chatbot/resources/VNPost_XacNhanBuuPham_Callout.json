@@ -1,0 +1,147 @@
+{
+    "id": 0,
+    "function": "Vn post",
+    "name": "Trâm Anh",
+    "attribute": [
+        {
+            "name": "COMPANY",
+            "value": "VNPost"
+        },
+        {
+            "name": "DANH_XUNG_1",
+            "value": "anh"
+        },
+        {
+            "name": "HO_VA_TEN_1",
+            "value": "Lê Quang Đạo"
+        },
+        {
+            "name": "TEN_1",
+            "value": "Đạo"
+        },
+        {
+            "name": "DANH_XUNG_2",
+            "value": "chị"
+        },
+        {
+            "name": "HO_VA_TEN_2",
+            "value": "Hoàng Thùy Linh"
+        },
+        {
+            "name": "TEN_2",
+            "value": "Linh"
+        },
+        {
+            "name": "CODE",
+            "value": "17121"
+        },
+        {
+            "name": "REQ",
+            "value": ""
+        }
+    ],
+    "script": [
+        {
+            "id": 0,
+            "type": "start",
+            "regex": [
+                {
+                    "text": "alo"
+                },
+                {
+                    "text": ".*?"
+                }
+            ],
+            "content": "18001306",
+            "next_id": 1
+        },
+        {
+            "id": 1,
+            "type": "speak",
+            "content": "cung cấp thông tin",
+            "speak": [
+                {
+                    "text": "Kính chào <DANH_XUNG_1> <HO_VA_TEN_1>."
+                }
+            ],
+            "next_id": 2
+        },
+        {
+            "id": 2,
+            "type": "speak",
+            "content": "cung cấp thông tin",
+            "speak": [
+                {
+                    "text": "VNPost xin thông báo, <DANH_XUNG_1> <TEN_1> có bưu phẩm mã <CODE>, được gửi từ <DANH_XUNG_2> <HO_VA_TEN_2> trong ngày hôm nay."
+                }
+            ],
+            "next_id": 3
+        },
+        {
+            "id": 3,
+            "type": "speak",
+            "content": "cung cấp thông tin",
+            "speak": [
+                {
+                    "text": "Xin <DANH_XUNG_1> vui lòng xác nhận. Nói Bưu cục, để nhận bưu phẩm tại bưu cục. Nói Địa chỉ riêng, để nhận bưu phẩm tại địa chỉ đã thông báo. Nói Xác nhận sau, để nhận cuộc gọi xác nhận sau."
+                }
+            ],
+            "next_id": 4
+        },
+        {
+            "id": 4,
+            "type": "choose",
+            "content": "3 tình huống :",
+            "att_name": "REQ",
+            "list_choose": [
+                {
+                    "regex": [
+                        {
+                            "text": ".*?bưu cục.*?"
+                        }
+                    ],
+                    "content": "chọn, nhận bưu phẩm tại bưu cục",
+                    "next_id": 5
+                },
+                {
+                    "regex": [
+                        {
+                            "text": ".*?địa chỉ riêng.*?"
+                        }
+                    ],
+                    "content": "chọn, nhận bưu phẩm tại địa chỉ đã thông báo",
+                    "next_id": 5
+                },
+                {
+                    "regex": [
+                        {
+                            "text": ".*?xác nhận sau.*?"
+                        }
+                    ],
+                    "content": "chọn, sẽ nhận cuộc gọi xác nhận sau",
+                    "next_id": 5
+                },
+                {
+                    "regex": [
+                        {
+                            "text": ".*?"
+                        }
+                    ],
+                    "content": "",
+                    "next_id": 3
+                }
+            ]
+        },
+        {
+            "id": 5,
+            "type": "speak",
+            "content": "xác nhận",
+            "speak": [
+                {
+                    "text": "<DANH_XUNG_1> đã <REQ>. Xin cảm ơn <DANH_XUNG_1> <TEN_1> đã sử dụng dịch vụ của VNPost _END_"
+                }
+            ],
+            "next_id": -1
+        }
+    ]
+}

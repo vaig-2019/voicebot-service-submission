@@ -4,8 +4,9 @@ from chatbot.utils import read_json
 
 
 class Script:
-    def __init__(self, chat_bot):
-        script_json = read_json(SCRIPT_FILE)
+    def __init__(self, chat_bot, path_script):
+        self.path_script = path_script
+        script_json = read_json(path_script)
         self.list_node = []
         self.chat_bot = chat_bot
         self.chat_bot.init_att(script_json["attribute"])
@@ -49,5 +50,5 @@ class Script:
             self.get_node().set_input(attribute)
 
     def reset(self):
-        self.__init__(self.chat_bot)
+        self.__init__(self.chat_bot, self.path_script)
 

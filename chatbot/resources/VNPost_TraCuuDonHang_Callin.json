@@ -1,0 +1,166 @@
+    {
+    "id": 0,
+    "function": "Vn post",
+    "name": "Trâm Anh",
+    "attribute": [
+        {
+            "name": "COMPANY",
+            "value": "VNPost"
+        },
+        {
+            "name": "DANH_XUNG",
+            "value": "anh"
+        },
+        {
+            "name": "HO_VA_TEN",
+            "value": "Trần Văn Đại"
+        },
+        {
+            "name": "TEN",
+            "value": "Đại"
+        },
+        {
+            "name": "DON_HANG",
+            "value": "một chiếc quạt trần"
+        },
+        {
+            "name": "GIA_TRI",
+            "value": "500000 VND"
+        },
+        {
+            "name": "THOI_GIAN_GIAO_HANG",
+            "value": "15h30 ngày 17/08"
+        },
+        {
+            "name": "DIA_CHI_GIAO_HANG",
+            "value": "số 25 Nguyễn Trãi phường Thanh Xuân, thành phố Hà Nội"
+        },
+        {
+            "name": "GIA_TRI",
+            "value": "500000 VND"
+        },
+        {
+            "name": "TRANG_THAI",
+            "value": "đang được vận chuyển"
+        },
+        {
+            "name": "REQ",
+            "value": ""
+        }
+    ],
+    "script": [
+        {
+            "id": 0,
+            "type": "start",
+            "regex": [
+                {
+                    "text": "alo"
+                },
+                {
+                    "text": ".*?"
+                }
+            ],
+            "content": "18001306",
+            "next_id": 1
+        },
+        {
+            "id": 1,
+            "type": "speak",
+            "content": "cung cấp thông tin",
+            "speak": [
+                {
+                    "text": "Kính chào <DANH_XUNG> <HO_VA_TEN>, đã gọi điện đến tổng đài chăm sóc khách hàng của VNPost"
+                }
+            ],
+            "next_id": 2
+        },
+        {
+            "id": 2,
+            "type": "speak",
+            "content": "cung cấp thông tin",
+            "speak": [
+                {
+                    "text": "Xin <DANH_XUNG> vui lòng nói Thông tin, để biết thông tin đơn hàng đã đặt. Nói Trạng thái, để biết trạng thái đơn hàng hiện tại. Nói Hỗ trợ, để gặp tổng đài viên hỗ trợ"
+                }
+            ],
+            "next_id": 3
+        },
+        {
+            "id": 3,
+            "type": "choose",
+            "content": "3 tình huống :",
+            "att_name": "REQ",
+            "list_choose": [
+                {
+                    "regex": [
+                        {
+                            "text": ".*?thông tin.*?"
+                        }
+                    ],
+                    "content": "",
+                    "next_id": 4
+                },
+                {
+                    "regex": [
+                        {
+                            "text": ".*?trạng thái.*?"
+                        }
+                    ],
+                    "content": "",
+                    "next_id": 5
+                },
+                {
+                    "regex": [
+                        {
+                            "text": ".*?hỗ trợ.*?"
+                        }
+                    ],
+                    "content": "",
+                    "next_id": 6
+                },
+                {
+                    "regex": [
+                        {
+                            "text": ".*?"
+                        }
+                    ],
+                    "content": "",
+                    "next_id": 2
+                }
+            ]
+        },
+        {
+            "id": 4,
+            "type": "speak",
+            "content": "tra cứu thông tin",
+            "speak": [
+                {
+                    "text": "<DANH_XUNG> <TEN> đã đặt hàng <DON_HANG>, với giá <GIA_TRI>. Đơn hàng được giao vào lúc: <THOI_GIAN_GIAO_HANG> , tại địa chỉ: <DIA_CHI_GIAO_HANG>. Xin trân trọng cảm ơn _END_"
+                }
+            ],
+            "next_id": -1
+        },
+        {
+            "id": 5,
+            "type": "speak",
+            "content": "tra cứu trạng thái",
+            "speak": [
+                {
+                    "text": "Đơn hàng của <DANH_XUNG> <TEN> hiện tại <TRANG_THAI>. Xin trân trọng cảm ơn _END_"
+                }
+            ],
+            "next_id": -1
+        },
+        {
+            "id": 6,
+            "type": "speak",
+            "content": "hỗ trợ",
+            "speak": [
+                {
+                    "text": "Cuộc gọi sẽ được chuyển hướng tới tổng đài viên ngay sau đây _END_"
+                }
+            ],
+            "next_id": -1
+        }
+    ]
+}

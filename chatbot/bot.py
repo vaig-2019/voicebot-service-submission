@@ -1,7 +1,7 @@
 import sys
 from chatbot.script import Script
 from flask import jsonify
-from chatbot.static import USER_INFO, SESSION_LIVE_TIME, FINISH_CONVERSATION, ERROR_CHOOSE, ERROR_INPUT
+from chatbot.static import USER_INFO, SESSION_LIVE_TIME, FINISH_CONVERSATION, ERROR_CHOOSE, ERROR_INPUT, SCRIPT_FOLDER
 import time
 from chatbot.user import User
 from chatbot.utils import read_json
@@ -9,13 +9,13 @@ from chatbot.utils import write_json
 
 
 class Bot:
-    def __init__(self):
+    def __init__(self, path_script):
         self.list_speaks = []
         self.born_time = time.time()
         self.attributes = {}
         self.stop = False
         self.user = User()
-        self.script = Script(self)
+        self.script = Script(self, SCRIPT_FOLDER + path_script)
 
     def reset_time(self):
         self.born_time = time.time()
@@ -108,7 +108,6 @@ class Bot:
             if input is None:
                 return [self.speak(ERROR_CHOOSE)]
             input = node.select_a_choose(input.lower())
-            # print(node.type, bot.user_request)
             if input is None:
                 return [self.speak(ERROR_CHOOSE)]
             else:

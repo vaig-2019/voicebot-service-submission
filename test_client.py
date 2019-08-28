@@ -12,10 +12,6 @@ import time
 import voicebot_pb2
 import voicebot_pb2_grpc
 
-from pydub import AudioSegment
-from pydub.playback import play
-
-
 CHUNK = 4000
 CHANNELS = 1
 RATE = 16000
@@ -25,7 +21,7 @@ def record_block():
     global CONNECTED
     yield voicebot_pb2.VoiceBotRequest(
         voicebot_config=voicebot_pb2.VoiceBotConfig(
-            call_center_code='18002222'))
+            call_center_code='18005555'))
     p = pyaudio.PyAudio()
     stream = p.open(format=pyaudio.paInt16,channels=CHANNELS,rate=RATE,input=True,frames_per_buffer=CHUNK)
     while True:
@@ -36,22 +32,8 @@ def record_block():
 
 
 def play_audio(url):
-    sys.stdout.write('{}\n'.format(url))
+    sys.stdout.write('TTS url: {}\n'.format(url))
     sys.stdout.flush()
-    
-    # fname = "C:\\Users\\Asdf\\Documents\\Audio.wav"
-    # mysong = AudioSegment.from_wav(fname)
-    # play(mysong)
-    # p = pyaudio.PyAudio()  
-    # stream = p.open(format = pyaudio.paInt16,  
-    #                 channels = 1,  
-    #                 rate = 16000,  
-    #                 output = True)
-    # time.sleep(0.1)
-    # stream.write(bytes[44:])
-    # stream.stop_stream()  
-    # stream.close()  
-    # p.terminate()  
 
 def run():
     global CONNECTED
@@ -62,9 +44,9 @@ def run():
     with grpc.insecure_channel('localhost:50051') as channel:
         voicebot_stub = voicebot_pb2_grpc.VoiceBotStub(channel)
 
-        # list_call_center_response = voicebot_stub.ListCallCenter(voicebot_pb2.ListCallCenterRequest())
-        # for call_center in list_call_center_response.call_centers:
-        #     print(call_center.code, call_center.name)
+        list_call_center_response = voicebot_stub.ListCallCenter(voicebot_pb2.ListCallCenterRequest())
+        for call_center in list_call_center_response.call_centers:
+            print(call_center.code, call_center.name)
 
         voicebot_response_iterator = voicebot_stub.CallToBot(record_block())
         voicebot_response = next(voicebot_response_iterator)

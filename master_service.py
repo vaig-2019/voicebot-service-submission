@@ -1,8 +1,10 @@
 from concurrent import futures
 import os
+import re
 import uuid
 import time
 import json
+import codecs
 import redis
 import requests
 from datetime import datetime
@@ -14,6 +16,8 @@ import grpc
 
 from chatbot.bot import Bot
 from pizzabot.pizza_bot import PizzaBot
+from highland_coffee_bot.highland_coffee_bot import HighLandCoffeeBot
+from telesale_bot.TelesaleBot import TelesaleBot
 
 import voicebot_pb2
 import voicebot_pb2_grpc
@@ -27,6 +31,12 @@ DUOC_CALL_IN = '18001111'
 DUOC_CALL_OUT = '18002222'
 PIZZA_CALL_IN = '18003333'
 PIZZA_CALL_OUT = '18004444'
+HIGHLAND_CALL_IN = '18005555'
+VNPOST_CALL_OUT = '18006661'
+VNPOST_TRA_CUU_DON_HANG = '18006662'
+VNPOST_XAC_NHAN_GIAO_HANG = '18006663'
+BANK_CALL_IN = '18007777'
+TELESALE_CALL_OUT = '18008888'
 
 class VoiceBot(voicebot_pb2_grpc.VoiceBotServicer):
     ERROR = -1
@@ -35,13 +45,28 @@ class VoiceBot(voicebot_pb2_grpc.VoiceBotServicer):
     def __init__(self):
         logging.info("VoiceBot service started!")
         self.redis_db = redis.StrictRedis(host="localhost", port=6379, db=0)
+        self.text2norm = self._ReadNormText()
 
     def ListCallCenter(self, request, context):
         list_call_center_response = voicebot_pb2.ListCallCenterResponse()
         for code, name, _ in config.CALL_CENTERS:
-            call_center = voicebot_pb2.CallCenter(code=code, name=name)
-            list_call_center_response.call_centers.append(call_center)
+            #call_center = voicebot_pb2.CallCenter(code=code, name=name)
+            list_call_center_response.call_centers.add(code=code, name=name)
         return list_call_center_response
+
+    def _ReadNormText(self):
+        result = []
+        with codecs.open(config.NORM_TEXT, "r", "utf8") as f:
+            for line in f.readlines():
+                tokens = line.strip().split()
+                result.append((tokens[0], ' '.join(tokens[1:])))
+        return result
+
+    def _NormForTTS(self, text):
+        text = text.lower()
+        for word, norm in self.text2norm:
+            text = re.sub(r"\b%s\b" % word , norm, text)
+        return text
 
     def _VoiceBotRequest2VoiceRequest(self, request_iterator):
         try:
@@ -69,6 +94,24 @@ class VoiceBot(voicebot_pb2_grpc.VoiceBotServicer):
                     message="Voicebot hearing ...")
                 for text_reply in response_interator:
                     sentence = text_reply.result.hypotheses[0].transcript
+                    # Rev norm
+                    try:
+                        r = requests.post(url=config.API_REV_NORM, data={'content': sentence})
+                        r_json = r.json()
+                        if 'status' in r_json and r_json['status'] and 'revNorm' in r_json:
+                            sentence = r_json['revNorm']
+                            logging.info("revNorm {}".format(sentence))
+                    except:
+                        pass
+                    # Correct
+                    try:
+                        r = requests.post(url=config.API_CORRECT, data={'content': sentence})
+                        r_json = r.json()
+                        if 'success' in r_json and r_json['success'] and 'correct_text' in r_json:
+                            sentence = r_json['correct_text']
+                            logging.info("correct {}".format(sentence))
+                    except:
+                        pass
                     if text_reply.result.final:
                         logging.info("{}\t_SpeechToText | Final: {}".format(client_id, sentence))
                         yield status_success, sentence, True
@@ -87,14 +130,15 @@ class VoiceBot(voicebot_pb2_grpc.VoiceBotServicer):
 
     def _TextToText_Duoc_CallOut(self, client_id, request_iterator):
         try:
-            bot_duoc = Bot()
+            ending = False
+            bot_duoc = Bot("Duoc_callout.json")
             status_success = voicebot_pb2.Status(
                 code=VoiceBot.SUCCESS, 
                 message="Voicebot thinking ...")
             text_response = bot_duoc.next_sentence("alo")
             resp = ""
             for token in text_response:
-                resp += token + "."
+                resp += token + ". "
             text_response = resp.replace("..",".")
             logging.info("{}\t_TextToText: {}".format(client_id, text_response))
             yield status_success, "", True, text_response
@@ -105,19 +149,73 @@ class VoiceBot(voicebot_pb2_grpc.VoiceBotServicer):
                 if not final:
                     yield status_success, text, False, ""
                 else:
+                    if ending:
+                        return
                     ## BOT HERE ##
                     # text_bot = "ha ha buồn cười quá"
                     text_ask = text
                     text_response = bot_duoc.next_sentence(text_ask)
                     resp = ""
                     for token in text_response:
-                        resp += token + "."
+                        resp += token + ". "
                     text_response = resp.replace("..",".")
                     ##############
                     logging.info("{}\t_TextToText: {}".format(client_id, text_response))
-                    if 'END' in text_response:
+                    if '_END_' in text_response:
+                        text_response = text_response.replace('_END_', '')
+                        yield status_success, text, True, text_response
+                        ending = True
+                        # return
+                    else:
+                        yield status_success, text, True, text_response
+        except GeneratorExit:
+            return
+        except:
+            status_error = voicebot_pb2.Status(
+                code=VoiceBot.ERROR, 
+                message="NLU Service not working!")
+            logging.error(traceback.format_exc())
+            yield status_error, "", True, ""
+
+    def _TextToText_Bank_CallIn(self, client_id, request_iterator):
+        try:
+            ending = False
+            bot_duoc = Bot("Bank_callin.json")
+            status_success = voicebot_pb2.Status(
+                code=VoiceBot.SUCCESS, 
+                message="Voicebot thinking ...")
+            text_response = bot_duoc.next_sentence("alo")
+            resp = ""
+            for token in text_response:
+                resp += token + ". "
+            text_response = resp.replace("..",".")
+            logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+            yield status_success, "", True, text_response
+            for status, text, final in request_iterator:
+                if status.code == VoiceBot.ERROR:
+                    yield status, ""
+                    break
+                if not final:
+                    yield status_success, text, False, ""
+                else:
+                    if ending:
                         return
-                    yield status_success, text, True, text_response
+                    ## BOT HERE ##
+                    text_ask = text
+                    text_response = bot_duoc.next_sentence(text_ask)
+                    resp = ""
+                    for token in text_response:
+                        resp += token + ". "
+                    text_response = resp.replace("..",".")
+                    ##############
+                    logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+                    if '_END_' in text_response:
+                        text_response = text_response.replace('_END_', '')
+                        yield status_success, text, True, text_response
+                        ending = True
+                        # return
+                    else:
+                        yield status_success, text, True, text_response
         except GeneratorExit:
             return
         except:
@@ -129,6 +227,7 @@ class VoiceBot(voicebot_pb2_grpc.VoiceBotServicer):
 
     def _TextToText_Pizza_CallIn(self, client_id, request_iterator):
         try:
+            ending = False
             pizza_bot = PizzaBot()
             status_success = voicebot_pb2.Status(
                 code=VoiceBot.SUCCESS, 
@@ -143,15 +242,248 @@ class VoiceBot(voicebot_pb2_grpc.VoiceBotServicer):
                 if not final:
                     yield status_success, text, False, ""
                 else:
+                    if ending:
+                        return
                     ## BOT HERE ##
                     # text_bot = "ha ha buồn cười quá"
                     text_ask = text
                     text_response = pizza_bot.interactive(user_message=text_ask)
                     ##############
                     logging.info("{}\t_TextToText: {}".format(client_id, text_response))
-                    if 'END' in text_response:
+                    if '_END_' in text_response:
+                        text_response = text_response.replace('_END_', '')
+                        yield status_success, text, True, text_response
+                        ending = True
+                        # return
+                    else:
+                        yield status_success, text, True, text_response
+        except GeneratorExit:
+            return
+        except:
+            status_error = voicebot_pb2.Status(
+                code=VoiceBot.ERROR, 
+                message="NLU Service not working!")
+            logging.error(traceback.format_exc())
+            yield status_error, "", True, ""
+
+    def _TextToText_Highland_CallIn(self, client_id, request_iterator):
+        try:
+            ending = False
+            bot = HighLandCoffeeBot()
+            status_success = voicebot_pb2.Status(
+                code=VoiceBot.SUCCESS, 
+                message="Voicebot thinking ...")
+            text_response = bot.interactive()
+            logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+            yield status_success, "", True, text_response
+            for status, text, final in request_iterator:
+                if status.code == VoiceBot.ERROR:
+                    yield status, "", True, ""
+                    break
+                if not final:
+                    yield status_success, text, False, ""
+                else:
+                    if ending:
                         return
-                    yield status_success, text, True, text_response
+                    ## BOT HERE ##s
+                    text_ask = text
+                    text_response = bot.interactive(user_message=text_ask)
+                    ##############
+                    logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+                    if '_END_' in text_response:
+                        text_response = text_response.replace('_END_', '')
+                        yield status_success, text, True, text_response
+                        ending = True
+                        # return
+                    else:
+                        yield status_success, text, True, text_response
+        except GeneratorExit:
+            return
+        except:
+            status_error = voicebot_pb2.Status(
+                code=VoiceBot.ERROR, 
+                message="NLU Service not working!")
+            logging.error(traceback.format_exc())
+            yield status_error, "", True, ""
+
+    def _TextToText_VNPost_CallOut(self, client_id, request_iterator):
+        try:
+            ending = False
+            bot_vnpost = Bot("VNPost_XacNhanBuuPham_Callout.json")
+            status_success = voicebot_pb2.Status(
+                code=VoiceBot.SUCCESS, 
+                message="Voicebot thinking ...")
+            text_response = bot_vnpost.next_sentence("alo")
+            resp = ""
+            for token in text_response:
+                resp += token + ". "
+            text_response = resp.replace("..",".")
+            logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+            yield status_success, "", True, text_response
+            for status, text, final in request_iterator:
+                if status.code == VoiceBot.ERROR:
+                    yield status, ""
+                    break
+                if not final:
+                    yield status_success, text, False, ""
+                else:
+                    if ending:
+                        return
+                    ## BOT HERE ##
+                    # text_bot = "ha ha buồn cười quá"
+                    text_ask = text
+                    text_response = bot_vnpost.next_sentence(text_ask)
+                    resp = ""
+                    for token in text_response:
+                        resp += token + ". "
+                    text_response = resp.replace("..",".")
+                    ##############
+                    logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+                    if '_END_' in text_response:
+                        text_response = text_response.replace('_END_', '')
+                        yield status_success, text, True, text_response
+                        ending = True
+                        # return
+                    else:
+                        yield status_success, text, True, text_response
+        except GeneratorExit:
+            return
+        except:
+            status_error = voicebot_pb2.Status(
+                code=VoiceBot.ERROR, 
+                message="NLU Service not working!")
+            logging.error(traceback.format_exc())
+            yield status_error, "", True, ""
+
+    def _TextToText_VNPost_TraCuuDonHang(self, client_id, request_iterator):
+        try:
+            ending = False
+            bot_vnpost = Bot("VNPost_TraCuuDonHang_Callin.json")
+            status_success = voicebot_pb2.Status(
+                code=VoiceBot.SUCCESS, 
+                message="Voicebot thinking ...")
+            text_response = bot_vnpost.next_sentence("alo")
+            resp = ""
+            for token in text_response:
+                resp += token + ". "
+            text_response = resp.replace("..",".")
+            logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+            yield status_success, "", True, text_response
+            for status, text, final in request_iterator:
+                if status.code == VoiceBot.ERROR:
+                    yield status, ""
+                    break
+                if not final:
+                    yield status_success, text, False, ""
+                else:
+                    if ending:
+                        return
+                    ## BOT HERE ##
+                    # text_bot = "ha ha buồn cười quá"
+                    text_ask = text
+                    text_response = bot_vnpost.next_sentence(text_ask)
+                    resp = ""
+                    for token in text_response:
+                        resp += token + ". "
+                    text_response = resp.replace("..",".")
+                    ##############
+                    logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+                    if '_END_' in text_response:
+                        text_response = text_response.replace('_END_', '')
+                        yield status_success, text, True, text_response
+                        ending = True
+                        # return
+                    else:
+                        yield status_success, text, True, text_response
+        except GeneratorExit:
+            return
+        except:
+            status_error = voicebot_pb2.Status(
+                code=VoiceBot.ERROR, 
+                message="NLU Service not working!")
+            logging.error(traceback.format_exc())
+            yield status_error, "", True, ""
+    
+    def _TextToText_VNPost_XacNhanGiaoHang(self, client_id, request_iterator):
+        try:
+            ending = False
+            bot_vnpost = Bot("VNPost_XacNhanGiaoHang_Callout.json")
+            status_success = voicebot_pb2.Status(
+                code=VoiceBot.SUCCESS, 
+                message="Voicebot thinking ...")
+            text_response = bot_vnpost.next_sentence("alo")
+            resp = ""
+            for token in text_response:
+                resp += token + ". "
+            text_response = resp.replace("..",".")
+            logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+            yield status_success, "", True, text_response
+            for status, text, final in request_iterator:
+                if status.code == VoiceBot.ERROR:
+                    yield status, ""
+                    break
+                if not final:
+                    yield status_success, text, False, ""
+                else:
+                    if ending:
+                        return
+                    ## BOT HERE ##
+                    # text_bot = "ha ha buồn cười quá"
+                    text_ask = text
+                    text_response = bot_vnpost.next_sentence(text_ask)
+                    resp = ""
+                    for token in text_response:
+                        resp += token + ". "
+                    text_response = resp.replace("..",".")
+                    ##############
+                    logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+                    if '_END_' in text_response:
+                        text_response = text_response.replace('_END_', '')
+                        yield status_success, text, True, text_response
+                        ending = True
+                        # return
+                    else:
+                        yield status_success, text, True, text_response
+        except GeneratorExit:
+            return
+        except:
+            status_error = voicebot_pb2.Status(
+                code=VoiceBot.ERROR, 
+                message="NLU Service not working!")
+            logging.error(traceback.format_exc())
+            yield status_error, "", True, ""
+
+    def _TextToText_Telesale_CallOut(self, client_id, request_iterator):
+        try:
+            ending = False
+            bot = TelesaleBot()
+            status_success = voicebot_pb2.Status(
+                code=VoiceBot.SUCCESS, 
+                message="Voicebot thinking ...")
+            text_response = bot.interactive()
+            logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+            yield status_success, "", True, text_response
+            for status, text, final in request_iterator:
+                if status.code == VoiceBot.ERROR:
+                    yield status, "", True, ""
+                    break
+                if not final:
+                    yield status_success, text, False, ""
+                else:
+                    if ending:
+                        return
+                    ## BOT HERE ##s
+                    text_ask = text
+                    text_response = bot.interactive(user_message=text_ask)
+                    ##############
+                    logging.info("{}\t_TextToText: {}".format(client_id, text_response))
+                    if '_END_' in text_response:
+                        text_response = text_response.replace('_END_', '')
+                        yield status_success, text, True, text_response
+                        ending = True
+                        # return
+                    else:
+                        yield status_success, text, True, text_response
         except GeneratorExit:
             return
         except:
@@ -177,13 +509,15 @@ class VoiceBot(voicebot_pb2_grpc.VoiceBotServicer):
                 else:
                     audio_url = None
                     try:
-                        response = requests.post(config.TTS_URL, data={'text': text_bot, 'voice': 'doanngocle_1_unnorm_cpu'}, timeout=config.TTS_TIMEOUT)
+                        text_req = self._NormForTTS(text_bot)
+                        response = requests.post(config.TTS_URL, data={'text': text_req, 'voice': config.TTS_VOICE}, timeout=config.TTS_TIMEOUT)
                         if response.status_code != 200:
                             logging.warn("{}\t_TextToSpeech | Error {}!".format(client_id, response.status_code))
                         else:
                             result = response.json()
                             if result['success']:
                                 audio_url = result['audio_path']
+                                logging.info("{}\t_TextToSpeech: {}".format(client_id, text_req))
                                 logging.info("{}\t_TextToSpeech: {}".format(client_id, audio_url))
                                 if 'end2end' not in audio_url:
                                     requests.post(config.TTS_CACHE, data={'text': text_bot})
@@ -244,6 +578,18 @@ class VoiceBot(voicebot_pb2_grpc.VoiceBotServicer):
             chatbot_response_iterator = self._TextToText_Duoc_CallOut(client_id, asr_response_iterator)
         elif call_center_code == PIZZA_CALL_IN:
             chatbot_response_iterator = self._TextToText_Pizza_CallIn(client_id, asr_response_iterator)
+        elif call_center_code == HIGHLAND_CALL_IN:
+            chatbot_response_iterator = self._TextToText_Highland_CallIn(client_id, asr_response_iterator)
+        elif call_center_code == VNPOST_CALL_OUT:
+            chatbot_response_iterator = self._TextToText_VNPost_CallOut(client_id, asr_response_iterator)
+        elif call_center_code == VNPOST_TRA_CUU_DON_HANG:
+            chatbot_response_iterator = self._TextToText_VNPost_TraCuuDonHang(client_id, asr_response_iterator)
+        elif call_center_code == VNPOST_XAC_NHAN_GIAO_HANG:
+            chatbot_response_iterator = self._TextToText_VNPost_XacNhanGiaoHang(client_id, asr_response_iterator)
+        elif call_center_code == BANK_CALL_IN:
+            chatbot_response_iterator = self._TextToText_Bank_CallIn(client_id, asr_response_iterator)
+        elif call_center_code == TELESALE_CALL_OUT:
+            chatbot_response_iterator = self._TextToText_Telesale_CallOut(client_id, asr_response_iterator)
         else:
             chatbot_response_iterator = self._TextToText_Duoc_CallOut(client_id, asr_response_iterator)
         tts_response_iterator = self._TextToSpeech(client_id, chatbot_response_iterator, timeout=config.TTS_TIMEOUT)

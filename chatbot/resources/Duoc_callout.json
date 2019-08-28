@@ -77,19 +77,19 @@
             "content":"cung cấp thông tin",
             "speak":[
                 {
-                    "text":"Dạ, em chào anh, em là tư vấn viên <BOT_NAME> của <COMPANY>. Cho em hỏi có phải anh <UNAME> nghe máy đúng không anh "
+                    "text":"Dạ, em chào anh, em là tư vấn viên <BOT_NAME> của <COMPANY> . Cho em hỏi có phải anh <UNAME> nghe máy đúng không anh "
                 },
                 {
-                    "text":"Dạ, Em là tư vấn viên <BOT_NAME> của <COMPANY>. Cho em hỏi có phải anh <UNAME> không ạ "
+                    "text":"Dạ, Em là tư vấn viên <BOT_NAME> của <COMPANY> . Cho em hỏi có phải anh <UNAME> không ạ "
                 },
                 {
-                    "text":"Em chào anh, em là tư vấn viên <BOT_NAME> của <COMPANY>. Cho em hỏi có phải anh <UNAME> nghe máy không anh "
+                    "text":"Em chào anh, em là tư vấn viên <BOT_NAME> của <COMPANY> . Cho em hỏi có phải anh <UNAME> nghe máy không anh "
                 },
                 {
-                    "text":"Em là tư vấn viên <BOT_NAME> của <COMPANY> ạ. Có phải anh <UNAME> nghe máy không ạ "
+                    "text":"Em là tư vấn viên <BOT_NAME> của <COMPANY> . Có phải anh <UNAME> nghe máy không ạ "
                 },
                 {
-                    "text":"Dạ, Em là tư vấn viên <BOT_NAME> của <COMPANY>. Có phải anh <UNAME> không ạ "
+                    "text":"Dạ, Em là tư vấn viên <BOT_NAME> của <COMPANY> . Có phải anh <UNAME> không ạ "
                 }
             ],
             "next_id":2
@@ -204,10 +204,7 @@
             "content":"(nhầm|lầm|lộn) máy",
             "speak":[
                 {
-                    "text":"Em xin lỗi, em lộn số. Nếu quý khách có nhu cầu cần được tư vấn về sản phẩm của <COMPANY>, quý khách vui lòng gọi lại tổng đài <X> vào giờ hành chính, từ 8 đến 15 giờ các ngày trong tuần. Chúc quý khách 1 ngày tốt lành"
-                },
-                {
-                    "text":"Nhầm số ạ, em xin lỗi. Nếu quý khách có nhu cầu cần được tư vấn về sản phẩm của <COMPANY>, quý khách vui lòng gọi lại tổng đài <X> vào giờ hành chính, từ 8 đến 15 giờ các ngày trong tuần. Chúc quý khách 1 ngày tốt lành"
+                    "text":"Dạ em xin lỗi vì đã làm phiền anh, chúc anh một ngày tốt lành_END_"
                 }
             ],
             "next_id":-1
@@ -258,7 +255,7 @@
             "next_id":8
         },
         {
-            "id":7,
+            "id":8,
             "type":"speak",
             "content":"Nhắc hẹn, tạm biệt",
             "speak":[
@@ -385,7 +382,7 @@
             "content":"Trả lời",
             "speak":[
                 {
-                    "text":"Dạ vâng, nếu vậy lúc nào có nhu cầu cần được tư vấn anh vui lòng gọi lại tổng đài <X> vào giờ hành chính, từ 8 đến 15 giờ các ngày trong tuần ạ. Chúc quý khách 1 ngày tốt lành"
+                    "text":"Dạ vâng, nếu vậy lúc nào có nhu cầu cần được tư vấn anh vui lòng gọi lại tổng đài <X> vào giờ hành chính, từ 8 đến 15 giờ các ngày trong tuần ạ. Chúc quý khách 1 ngày tốt lành _END_"
                 }
             ],
             "next_id":-1
@@ -500,7 +497,7 @@
             "content":"Hướng dẫn",
             "speak":[
                 {
-                    "text":"<HUONGDAN> . Em tư vấn đến đây thôi. Lúc nào có nhu cầu cần được tư vấn anh vui lòng gọi lại tổng đài <X> vào giờ hành chính, từ 8 đến 15 giờ các ngày trong tuần ạ. Chúc quý khách 1 ngày tốt lành"
+                    "text":"<HUONGDAN> . Em tư vấn đến đây thôi. Lúc nào có nhu cầu cần được tư vấn anh vui lòng gọi lại tổng đài <X> vào giờ hành chính, từ 8 đến 15 giờ các ngày trong tuần ạ. Chúc quý khách 1 ngày tốt lành _END_"
                 }
             ],
             "next_id":-1
@@ -511,7 +508,7 @@
             "content":"tạm biệt",
             "speak":[
                 {
-                    "text":"Dạ vâng. Chào tạm biệt quý khách, chúc quý khách một ngày tốt lành"
+                    "text":"Dạ vâng. Chào tạm biệt quý khách, chúc quý khách một ngày tốt lành _END_"
                 }
             ],
             "next_id":-1

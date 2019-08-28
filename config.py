@@ -5,7 +5,13 @@ CALL_CENTERS = [
     #('18001111', 'Dược Call In', 0),
     ('18002222', 'Dược Call Out', 1),
     ('18003333', 'Pizza Call In', 0),
-    #('18004444', 'Pizza Call Out', 1)
+    #('18004444', 'Pizza Call Out', 1),
+    ('18005555', 'Highland Coffee Call In', 0),
+    ('18006661', 'VNPost Xác nhận bưu phẩm', 1),
+    ('18006662', 'VNPost Tra cứu đơn hàng', 0),
+    ('18006663', 'VNPost Xác nhận giao hàng', 1),
+    ('18007777', 'Bank Call In', 0),
+    ('18008888', 'Telesale Call out', 1),
 ]
 
 CLIENTS = [
@@ -25,8 +31,16 @@ REDIS_PORT = 6379
 TTS_URL = 'https://merlin-tts.kiki.laban.vn/api/end2end/path'
 TTS_CACHE = 'https://merlin-tts.kiki.laban.vn/api/end2end/cache'
 TTS_TIMEOUT = 3
+TTS_VOICE = 'end2end_doanngocle'
+
+API_REV_NORM = "http://123.31.18.120:7777/rev-norm"
+API_CORRECT = "http://123.31.18.120:7778/correct"
 
 CHATBOT_URI = 'localhost:50052'
 
+NORM_TEXT = "norm.txt"
+
 if MODE == 'server':
     ASR_URI = 'localhost:50050'
+    API_REV_NORM = "http://0.0.0.0:7777/rev-norm"
+    API_CORRECT = "http://0.0.0.0:7778/correct"

@@ -1,0 +1,406 @@
+{
+    "id":0,
+    "function":"Tổng đài tư vấn công ty dược phẩm",
+    "name":"Tchai",
+    "attribute":[
+        {
+            "name":"COMPANY",
+            "value":"Ngân hàng thương mại cổ phần Hàng hải Việt Nam MSB"
+        },
+        {
+            "name":"UNAME",
+            "value":"Nguyễn Văn Nam"
+        },
+        {
+            "name":"UNAME_SORT",
+            "value":"Nam"
+        },
+        {
+            "name":"BOT_NAME",
+            "value":"Thu Hà"
+        },
+        {
+            "name":"X",
+            "value":"1800 59 9999"
+        },
+        {
+            "name":"ID_CARD",
+            "value":"03201012930094"
+        },
+        {
+            "name":"BOOKING_TIME",
+            "value":""
+        },
+        {
+            "name":"TUVAN",
+            "value":""
+        },
+        {
+            "name":"TRALOI",
+            "value":""
+        }
+    ],
+    "script":[
+        {
+            "id":0,
+            "type":"start",
+            "regex":[
+                {
+                    "text":"xin chào"
+                },
+                {
+                    "text": ".*"
+                }
+            ],
+            "content":"1800.1506",
+            "next_id":1
+        },
+        {
+            "id":1,
+            "type":"speak",
+            "content":"cung cấp thông tin",
+            "speak":[
+                {
+                    "text":"Kính chào quý khách,​ em là <BOT_NAME> tư vấn viên tự động của <COMPANY>. Xin hỏi quý khách muốn tư vấn dịch vụ của khách hàng cá nhân hay khách hàng tổ chức, doanh nghiệp."
+                }
+            ],
+            "next_id":2
+        },
+        {
+            "id":2,
+            "type":"choose",
+            "content":"3 tình huống : cá nhân, doanh nghiệp, nói ko hiểu gì",
+            "att_name":"TUVAN",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":".*?cá nhân.*?"
+                        }
+                    ],
+                    "content":"cá nhân",
+                    "next_id":3
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?doanh nghiệp.*?"
+                        },
+                        {
+                            "text":".*?tổ chức.*?"
+                        }
+                    ],
+                    "content":"người nhà gọi",
+                    "next_id":4
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*"
+                        }
+                    ],
+                    "content":"không hiểu",
+                    "next_id":5
+                }
+            ]
+        },
+        {
+            "id":3,
+            "type":"speak",
+            "content":"Hỏi tư vấn cá nhân",
+            "speak":[
+                {
+                    "text": "Dạ vâng, quý khách muốn tư vấn thông tin gì cho khách hàng cá nhân. Về yêu cầu khóa thẻ, kích hoạt thẻ, tra cứu số dư, hay muốn gặp tư vấn viên."
+                }
+            ],
+            "next_id":6
+        },
+        {
+            "id":4,
+            "type":"speak",
+            "content":"Hỏi tư vấn doanh nghiệp",
+            "speak":[
+                {
+                    "text": "Dạ vâng, quý khách muốn tư vấn thông tin gì cho khách hàng doanh nghiệp, về dịch vụ internet banking, mobile banking hay về dịch vụ nộp thuế thương mại điện tử."
+                }
+            ],
+            "next_id":15
+        },
+        {
+            "id":5,
+            "type":"speak",
+            "content":"Nhắc lại",
+            "speak":[
+                {
+                    "text":"Cho em hỏi lại, Quý khách cần tư vấn về dịch vụ cho khách hàng cá nhân hay tổ chức doanh nghiệp."
+                }
+            ],
+            "next_id":2
+        },
+        {
+            "id":6,
+            "type":"choose",
+            "content":"khóa thẻ|kích hoạt thẻ|hỗ trợ khác|ngân hàng điện tử|số dư tài khoản|gặp tư vấn viên",
+            "att_name":"TUVAN",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":".*?khóa thẻ.*?"
+                        }
+                    ],
+                    "content":"",
+                    "next_id":8
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?kích hoạt.*?"
+                        }
+                    ],
+                    "content":"",
+                    "next_id":9
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?thẻ.*?"
+                        }
+                    ],
+                    "content":"",
+                    "next_id":10
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?điện tử.*?"
+                        }
+                    ],
+                    "content":"",
+                    "next_id":11
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?số dư.*?"
+                        }
+                    ],
+                    "content":"",
+                    "next_id":12
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?tư vấn viên.*?"
+                        }
+                    ],
+                    "content":"",
+                    "next_id":13
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?doanh nghiệp.*?"
+                        }
+                    ],
+                    "content":"",
+                    "next_id":4
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*"
+                        }
+                    ],
+                    "content":"",
+                    "next_id":14
+                }
+            ]
+        },
+        {
+            "id":7,
+            "type":"speak",
+            "content":"Nhắc lại",
+            "speak":[
+                {
+                    "text":"Cho em hỏi lại, Quý khách cần tư vấn về dịch vụ cho khách hàng cá nhân hay tổ chức doanh nghiệp vậy."
+                }
+            ],
+            "next_id":2
+        },
+        {
+            "id":8,
+            "type":"speak",
+            "content":"khóa thẻ",
+            "speak":[
+                {
+                    "text":"Dạ, em sẽ chuyển điện thoại đến tư vấn viên để tư vấn về yêu cầu khóa thẻ ngân hàng ngay, quý khách vui lòng giữ máy_END_"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":9,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ, em sẽ chuyển điện thoại đến tư vấn viên để tư vấn về yêu cầu kích hoạt thẻ ngân hàng ngay, quý khách vui lòng giữ máy_END_"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":10,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ, em sẽ chuyển điện thoại đến tư vấn viên để tư vấn rõ cho quý khách ngay, quý khách vui lòng giữ máy_END_"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":11,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ, em sẽ chuyển điện thoại đến tư vấn viên để tư vấn về hệ thống ngân hàng điện tử ngay, quý khách vui lòng giữ máy_END_"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":12,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Vì lý do bảo mật thông tin người dùng, em sẽ chuyển máy đến tư vấn viên để xác minh, quý khách vui lòng giữ máy_END_"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":13,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ, em sẽ chuyển điện thoại đến tư vấn viên ngay, quý khách vui lòng giữ máy_END_"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":14,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ, quý khách vui lòng nhắc lại yêu cầu tư vấn giúp em. Về yêu cầu khóa thẻ, kích hoạt thẻ, tra cứu số dư, hay muốn gặp tư vấn viên"
+                }
+            ],
+            "next_id":6
+        },
+        {
+            "id":15,
+            "type":"choose",
+            "content":"Doanh nghiệp",
+            "att_name":"",
+            "list_choose":[
+                {
+                    "regex":[
+                        {
+                            "text":".*?internet.*?"
+                        }
+                    ],
+                    "content":"internet banking",
+                    "next_id":16
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?mobile.*?"
+                        }
+                    ],
+                    "content":"mobile",
+                    "next_id":17
+                },
+                {
+                    "regex": [
+                        {
+                            "text": ".*?nộp thuế.*?"
+                        }
+                    ],
+                    "content": "nộp thuế thương mại điện tử",
+                    "next_id": 18
+                },
+                {
+                    "regex":[
+                        {
+                            "text":".*?cá nhân.*?"
+                        }
+                    ],
+                    "content":"",
+                    "next_id":3
+                },
+                {
+                    "regex": [
+                        {
+                            "text": ".*?"
+                        }
+                    ],
+                    "content": "ko rõ",
+                    "next_id": 19
+                }
+            ]
+        },
+        {
+            "id":16,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ, em sẽ chuyển điện thoại đến tư vấn viên để tư vấn về dịch vụ internet banking ngay, quý khách vui lòng giữ máy_END_"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":17,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ, em sẽ chuyển điện thoại đến tư vấn viên để tư vấn về dịch vụ mobile banking ngay, quý khách vui lòng giữ máy_END_"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":18,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ, em sẽ chuyển điện thoại đến tư vấn viên để tư vấn về dịch vụ nộp thuế thương mại điện tử ngay, quý khách vui lòng giữ máy_END_"
+                }
+            ],
+            "next_id":-1
+        },
+        {
+            "id":19,
+            "type":"speak",
+            "content":"Trả lời",
+            "speak":[
+                {
+                    "text":"Dạ em nghe chưa rõ, quý khách vui lòng nhắc lại lựa chọn. Về dịch vụ internet banking, mobile banking hay về dịch vụ nộp thuế thương mại điện tử."
+                }
+            ],
+            "next_id":15
+        }
+    ]
+}

@@ -1,0 +1,173 @@
+{
+  "paras": {
+    "{para.bot_name}": "Highland Bot",
+    "{para.company_name}": "hệ thống nhà hàng Highland Coffee"
+  },
+  "regex_para": "{para\\.[^}]+}",
+  "start_node_id": 1,
+  "confirm_node_id": 5,
+  "end_node_id": 6,
+  "requires": {
+    "orders": [
+      "{para.item_name}",
+      "{para.item_size}",
+      "{para.item_amount}",
+      "{para.user_address}"
+    ],
+    "{para.item_name}": {
+      "node_id": 1,
+      "match_regex": [
+        "cà phê .*đá",
+        "cà phê .*nóng",
+        "phin .*đá",
+        "phin .*nóng",
+        "capuccino",
+        "cà phê phin",
+        "cà phê đen",
+        "cà phê espresso",
+        "espresso",
+        "freeze cà phê",
+        "freeze không cà phê",
+        "trà sen vàng",
+        "trà thạch đào",
+        "trà thanh đào",
+        "trà thạch vải"
+      ]
+    },
+    "{para.item_size}": {
+      "node_id": 2,
+      "match_regex": [
+        ".*([1-9] (?:lớn|nhỏ|vừa) [1-9] (?:lớn|nhỏ|vừa|to)  [1-9] (?:lớn|nhỏ|vừa|to)).*",
+        ".*([1-9] (?:lớn|nhỏ|vừa|to) [1-9] (?:lớn|nhỏ|vừa|to)  [1-9] (?:lớn|nhỏ|vừa|to)).*",
+        ".*((?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:lớn|nhỏ|vừa|to) (?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:lớn|nhỏ|vừa|to) (?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín) (?:lớn|nhỏ|vừa|to)).*",
+        ".*([1-9] (?:size|cỡ) (?:lớn|nhỏ|vừa|to) [1-9] (?:size|cỡ) (?:lớn|nhỏ|vừa|to)).*",
+        ".*((?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:size|cỡ) (?:lớn|nhỏ|vừa|to) (?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:size|cỡ) (?:lớn|nhỏ|vừa|to)).*",
+        ".*(lớn|vừa|nhỏ|to).*"
+      ]
+    },
+    "{para.item_amount}": {
+      "node_id": 3,
+      "match_regex": [
+        "(một|hai|ba|bốn|năm|sáu|bảy|tám|chín|mười) cốc",
+        "(một|hai|ba|bốn|năm|sáu|bảy|tám|chín|mười)",
+        "(\\d+) (?:cốc)",
+        "\\b([1-9])\\b",
+        "\\b(10)\\b"
+      ]
+    },
+    "{para.user_address}": {
+      "node_id": 4,
+      "match_regex": [
+        ".*(?:địa chỉ) (.+(?:ba đình|hoàn kiếm|tây hồ|long biên|cầu giấy|đống đa|hai bà trưng|hoàng mai|thanh xuân|sóc sơn|đông anh|gia lâm|nam từ liêm|thanh trì|bắc từ liêm|mê linh|hà đông|sơn tây|ba vì|phúc thọ|đan phượng|hoài đức|quốc oai|thạch thất|chương mỹ|thanh oai|thường tín|phú xuyên|ứng hòa|mỹ đức|hà nội)).*",
+        ".*(?:đến|tới) (.+(?:ba đình|hoàn kiếm|tây hồ|long biên|cầu giấy|đống đa|hai bà trưng|hoàng mai|thanh xuân|sóc sơn|đông anh|gia lâm|nam từ liêm|thanh trì|bắc từ liêm|mê linh|hà đông|sơn tây|ba vì|phúc thọ|đan phượng|hoài đức|quốc oai|thạch thất|chương mỹ|thanh oai|thường tín|phú xuyên|ứng hòa|mỹ đức|hà nội)).*",
+        ".*((?:số nhà|số|tòa|đường|thôn|công ty).+(?:ba đình|hoàn kiếm|tây hồ|long biên|cầu giấy|đống đa|hai bà trưng|hoàng mai|thanh xuân|sóc sơn|đông anh|gia lâm|nam từ liêm|thanh trì|bắc từ liêm|mê linh|hà đông|sơn tây|ba vì|phúc thọ|đan phượng|hoài đức|quốc oai|thạch thất|chương mỹ|thanh oai|thường tín|phú xuyên|ứng hòa|mỹ đức|hà nội)).*",
+        ".*((?:\\b\\d{1,3}).+(?:ba đình|hoàn kiếm|tây hồ|long biên|cầu giấy|đống đa|hai bà trưng|hoàng mai|thanh xuân|sóc sơn|đông anh|gia lâm|nam từ liêm|thanh trì|bắc từ liêm|mê linh|hà đông|sơn tây|ba vì|phúc thọ|đan phượng|hoài đức|quốc oai|thạch thất|chương mỹ|thanh oai|thường tín|phú xuyên|ứng hòa|mỹ đức|hà nội)).*"
+      ]
+    }
+  },
+  "stories": [
+    {},
+    {
+      "node_id": 1,
+      "node_name": "start",
+      "description": "Lời mở đầu của bot",
+      "type": "bot",
+      "match_regex": [],
+      "message": [
+        "Kính chào quý khách, em là {para.bot_name} của {para.company_name}. Quý khách muốn đặt loại đồ uống nào vậy ạ",
+        "{para.bot_name} của {para.company_name} xin kính chào quý khách. Quý khách cho em xin tên đồ uống muốn đặt mua ạ"
+      ],
+      "start_over_message": [
+        "Quý khách vui lòng cho bên em xin lại thông tin đặt hàng ạ"
+      ],
+      "error_message": [
+        "Rất xin lỗi quý khách vì sai sót, quý khách vui lòng cho {para.bot_name} xin lại thông tin đặt hàng của mình ạ.",
+        "Bên em đang có các món truyền thống như là cà phê phin, trà sen vàng, freeze cà phê. Quý khách muốn đặt loại nào vậy",
+        "Cà phê phin, trà sen vàng, freeze cà phê là các món nổi bật của Highland, không rõ quý khách muốn đặt món nào ạ"
+      ]
+    },
+    {
+      "node_id": 2,
+      "node_name": "ask size",
+      "description": "Hỏi size khách hàng muốn đặt",
+      "type": "bot",
+      "message": [
+        "Dạ, quý khách muốn đặt cỡ lớn, nhỏ hay vừa vậy",
+        "Dạ, bên em có cỡ lớn, vừa, nhỏ. Quý khách đặt cỡ nào vậy",
+        "Quý khách muốn mua cỡ lớn, nhỏ hay vừa vậy ạ"
+      ],
+      "error_message": [
+        "Xin lỗi quý khách, {para.bot_name} chưa rõ số lượng {para.item_name} quý khách muốn đặt ạ",
+        "Rất tiếc, {para.bot_name} chưa thể xác định số lượng ạ"
+      ]
+    },
+    {
+      "node_id": 3,
+      "node_name": "ask amount",
+      "description": "Hỏi kích thước khách hàng muốn đặt",
+      "type": "bot",
+      "message": [
+        "Quý khách cần mua bao nhiêu cốc",
+        "Quý khách muốn mua bao nhiêu cốc {para.item_name}",
+        "Quý khách muốn đặt mấy cốc {para.item_name}",
+        "Quý khách cần đặt mấy cốc"
+      ],
+      "error_message": [
+        "Xin lỗi quý khách, {para.bot_name} chưa rõ kích thước {para.item_name} quý khách muốn đặt ạ"
+      ]
+    },
+    {
+      "node_id": 4,
+      "node_name": "ask user address",
+      "description": "Hỏi địa chỉ giao hàng",
+      "type": "bot",
+      "message": [
+        "Quý khách vui lòng cho {para.bot_name} xin địa chỉ giao hàng",
+        "Quý khách có thể cho {para.bot_name} biết địa chỉ giao hàng",
+        "Quý khách muốn giao hàng tới địa chỉ nào",
+        "Quý khách muốn giao hàng tới đâu vậy",
+        "Quý khách cho {para.bot_name} xin địa chỉ nhận hàng ạ"
+      ],
+      "error_message": [
+        "Xin lỗi quý khách, {para.bot_name} chưa thể xác định được địa chỉ giao hàng"
+      ]
+    },
+    {
+      "node_id": 5,
+      "node_name": "confirm_order",
+      "description": "Confirm đặt hàng",
+      "type": "bot",
+      "match_yes": [
+        ".*(ừ|đúng|ok|uh|chính xác|chuẩn).*"
+      ],
+      "match_no": [
+        ".*(không|sai|sửa|đổi).*"
+      ],
+      "message": [
+        "{para.bot_name} xin xác nhận thông tin đơn hàng: {para.item_amount} {para.item_name} cỡ {para.item_size} đến địa chỉ {para.user_address} đúng không ạ",
+        "Quý khách xác nhận giúp em: {para.item_amount} {para.item_name} cỡ {para.item_size} với gửi tới {para.user_address} đúng không ạ",
+        "Quý khách xác nhận giúp em: {para.item_amount} {para.item_name} cỡ {para.item_size} giao hàng đến {para.user_address} đúng chưa ạ",
+        "Cho em hỏi thông tin đơn hàng: {para.item_amount} {para.item_name} cỡ {para.item_size} chuyển tới {para.user_address} đúng không ạ"
+      ],
+      "error_message": [
+        "Quý khách vui lòng xác nhận lại thông tin đơn hàng giúp {para.bot_name}, {para.item_amount} {para.item_name} cỡ {para.item_size} đến địa chỉ {para.user_address} đúng không ạ"
+      ]
+    },
+    {
+      "node_id": 6,
+      "node_name": "end",
+      "description": "tạm biệt",
+      "type": "bot",
+      "match_regex": [],
+      "message": [
+        "Đơn hàng của quý khách đã được xác nhận, bên {para.bot_name} sẽ cho người đi giao hàng cho quý khách ngay.Cảm ơn quý khách đã tin tưởng sử dụng sản phẩm của {para.company_name}. Chúc quý khách ngon miệng"
+      ],
+      "error_message": [
+        "Rất xin lỗi vì không hiểu yêu cầu của quý khách, {para.bot_name} sẽ chuyển máy qua điện thoại viên để hỗ trợ quý khách ạ",
+        "{para.bot_name} lấy làm tiếc vì không hiểu yêu cầu của quý khách, ngay sau đây nhân viên tư vấn sẽ hỗ trợ anh chị",
+        "Rất tiếc {para.bot_name} không hiểu yêu cầu của quý khách, sau đây {para.bot_name} sẽ chuyển máy cho điện thoại viên",
+        "Để việc phục vụ quý khách tốt hơn, sau đây nhân viên của {para.company_name} sẽ hỗ trợ anh chị ạ"
+      ]
+    }
+  ]
+}

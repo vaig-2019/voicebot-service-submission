@@ -35,12 +35,12 @@
     "{para.pizza_size}": {
       "node_id": 3,
       "match_regex": [
-        ".*([1-9] (?:lớn|nhỏ|vừa) [1-9] (?:lớn|nhỏ|vừa)  [1-9] (?:lớn|nhỏ|vừa)).*",
-        ".*([1-9] (?:lớn|nhỏ|vừa) [1-9] (?:lớn|nhỏ|vừa)  [1-9] (?:lớn|nhỏ|vừa)).*",
-        ".*((?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:lớn|nhỏ|vừa) (?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:lớn|nhỏ|vừa) (?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín) (?:lớn|nhỏ|vừa)).*",
-        ".*([1-9] (?:size|cỡ) (?:lớn|nhỏ|vừa) [1-9] (?:size|cỡ) (?:lớn|nhỏ|vừa)).*",
-        ".*((?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:size|cỡ) (?:lớn|nhỏ|vừa) (?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:size|cỡ) (?:lớn|nhỏ|vừa)).*",
-        ".*(lớn|vừa|nhỏ).*"
+        ".*([1-9] (?:lớn|nhỏ|vừa) [1-9] (?:lớn|nhỏ|vừa|to)  [1-9] (?:lớn|nhỏ|vừa|to)).*",
+        ".*([1-9] (?:lớn|nhỏ|vừa|to) [1-9] (?:lớn|nhỏ|vừa|to)  [1-9] (?:lớn|nhỏ|vừa|to)).*",
+        ".*((?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:lớn|nhỏ|vừa|to) (?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:lớn|nhỏ|vừa|to) (?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín) (?:lớn|nhỏ|vừa|to)).*",
+        ".*([1-9] (?:size|cỡ) (?:lớn|nhỏ|vừa|to) [1-9] (?:size|cỡ) (?:lớn|nhỏ|vừa|to)).*",
+        ".*((?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:size|cỡ) (?:lớn|nhỏ|vừa|to) (?:một|hai|ba|bốn|năm|sáu|bảy|tám|chín|\\d) (?:size|cỡ) (?:lớn|nhỏ|vừa|to)).*",
+        ".*(lớn|vừa|nhỏ|to).*"
       ]
     },
     "{para.pizza_type}": {
@@ -58,8 +58,8 @@
       "match_regex": [
         ".*(?:địa chỉ) (.+(?:ba đình|hoàn kiếm|tây hồ|long biên|cầu giấy|đống đa|hai bà trưng|hoàng mai|thanh xuân|sóc sơn|đông anh|gia lâm|nam từ liêm|thanh trì|bắc từ liêm|mê linh|hà đông|sơn tây|ba vì|phúc thọ|đan phượng|hoài đức|quốc oai|thạch thất|chương mỹ|thanh oai|thường tín|phú xuyên|ứng hòa|mỹ đức|hà nội)).*",
         ".*(?:đến|tới) (.+(?:ba đình|hoàn kiếm|tây hồ|long biên|cầu giấy|đống đa|hai bà trưng|hoàng mai|thanh xuân|sóc sơn|đông anh|gia lâm|nam từ liêm|thanh trì|bắc từ liêm|mê linh|hà đông|sơn tây|ba vì|phúc thọ|đan phượng|hoài đức|quốc oai|thạch thất|chương mỹ|thanh oai|thường tín|phú xuyên|ứng hòa|mỹ đức|hà nội)).*",
-        ".*((?:số|tòa).+(?:ba đình|hoàn kiếm|tây hồ|long biên|cầu giấy|đống đa|hai bà trưng|hoàng mai|thanh xuân|sóc sơn|đông anh|gia lâm|nam từ liêm|thanh trì|bắc từ liêm|mê linh|hà đông|sơn tây|ba vì|phúc thọ|đan phượng|hoài đức|quốc oai|thạch thất|chương mỹ|thanh oai|thường tín|phú xuyên|ứng hòa|mỹ đức|hà nội)).*",
-        ".*((?:\\b\\d{1,3}).+(?:ba đình|hoàn kiếm|tây hồ|long biên|cầu giấy|đống đa|hai bà trưng|hoàng mai|thanh xuân|sóc sơn|đông anh|gia lâm|nam từ liêm|thanh trì|bắc từ liêm|mê linh|hà đông|sơn tây|ba vì|phúc thọ|đan phượng|hoài đức|quốc oai|thạch thất|chương mỹ|thanh oai|thường tín|phú xuyên|ứng hòa|mỹ đức|hà nội)).*",
+        ".*((?:số nhà|số|tòa|đường|thôn|công ty).+(?:ba đình|hoàn kiếm|tây hồ|long biên|cầu giấy|đống đa|hai bà trưng|hoàng mai|thanh xuân|sóc sơn|đông anh|gia lâm|nam từ liêm|thanh trì|bắc từ liêm|mê linh|hà đông|sơn tây|ba vì|phúc thọ|đan phượng|hoài đức|quốc oai|thạch thất|chương mỹ|thanh oai|thường tín|phú xuyên|ứng hòa|mỹ đức|hà nội)).*",
+        ".*((?:\\b\\d{1,3}).+(?:ba đình|hoàn kiếm|tây hồ|long biên|cầu giấy|đống đa|hai bà trưng|hoàng mai|thanh xuân|sóc sơn|đông anh|gia lâm|nam từ liêm|thanh trì|bắc từ liêm|mê linh|hà đông|sơn tây|ba vì|phúc thọ|đan phượng|hoài đức|quốc oai|thạch thất|chương mỹ|thanh oai|thường tín|phú xuyên|ứng hòa|mỹ đức|hà nội)).*"
       ]
     }
   },
@@ -75,9 +75,9 @@
       "type": "bot",
       "match_regex": [],
       "message": [
-        "Kính chào quý khách, {para.bot_name} của {para.company_name} có thể giúp gì quý khách",
-        "Kính chào quý khách, em là {para.bot_name} của {para.company_name} sẵn sàng phục vụ quý khách",
-        "Dạ, chào quý khách, {para.bot_name} của {para.company_name} có thể phục vụ gì cho quý khách"
+        "Kính chào quý khách, {para.bot_name} của {para.company_name} có thể giúp gì anh chị ạ",
+        "Kính chào quý khách, em là {para.bot_name} của {para.company_name} sẵn sàng phục vụ anh chị",
+        "Dạ, chào quý khách, {para.bot_name} của {para.company_name} có thể phục vụ gì cho quý khách ạ"
       ],
       "start_over_message": [
         "Rất xin lỗi quý khách vì sai sót, quý khách vui lòng cho {para.bot_name} xin lại thông tin đặt pizza của mình ạ."
@@ -99,7 +99,7 @@
       ],
       "error_message": [
         "Xin lỗi quý khách, {para.bot_name} chưa nghe rõ tên pizza quý khách muốn đặt",
-        "Xin lỗi quý khách, Phía {para.company_name} có các loại pizza sau: {para.list_pizza_name}, quý khách muốn đặt pizza nào?",
+        "Xin lỗi quý khách, Phía {para.company_name} có các loại pizza sau: {para.list_pizza_name}, quý khách muốn đặt pizza nào",
         "Quý khách có thể nhắc lại thông tin loại pizza mà mình muốn đặt giúp {para.bot_name} không"
       ]
     },
@@ -175,13 +175,13 @@
         ".*(không|sai|sửa|đổi).*"
       ],
       "message": [
-        "{para.bot_name} xin xác nhận thông tin đơn hàng: {para.pizza_amount} {para.pizza_name} cỡ {para.pizza_size} đế {para.pizza_type} đến địa chỉ {para.pizza_address} đúng không ạ?",
-        "Quý khách xác nhận giúp em: {para.pizza_amount} pizza {para.pizza_name} cỡ {para.pizza_size} với đế {para.pizza_type} gửi tới {para.pizza_address} đúng không ạ?",
-        "Quý khách xác nhận giúp em: {para.pizza_amount} {para.pizza_name} cỡ {para.pizza_size} đế {para.pizza_type} giao hàng đến {para.pizza_address} đúng chưa ạ?",
-        "Cho em hỏi thông tin đơn hàng: {para.pizza_amount} {para.pizza_name} cỡ {para.pizza_size} đế {para.pizza_type} chuyển tới {para.pizza_address} đúng không ạ?"
+        "{para.bot_name} xin xác nhận thông tin đơn hàng: {para.pizza_amount} {para.pizza_name} cỡ {para.pizza_size} đế {para.pizza_type} đến địa chỉ {para.pizza_address} đúng không ạ",
+        "Quý khách xác nhận giúp em: {para.pizza_amount} pizza {para.pizza_name} cỡ {para.pizza_size} với đế {para.pizza_type} gửi tới {para.pizza_address} đúng không ạ",
+        "Quý khách xác nhận giúp em: {para.pizza_amount} {para.pizza_name} cỡ {para.pizza_size} đế {para.pizza_type} giao hàng đến {para.pizza_address} đúng chưa ạ",
+        "Cho em hỏi thông tin đơn hàng: {para.pizza_amount} {para.pizza_name} cỡ {para.pizza_size} đế {para.pizza_type} chuyển tới {para.pizza_address} đúng không ạ"
       ],
       "error_message": [
-        "Xin lỗi quý khách, quý khách vui lòng xác nhận lại thông tin đơn hàng giúp {para.bot_name} ạ"
+        "Quý khách vui lòng xác nhận lại thông tin đơn hàng giúp {para.bot_name}, {para.pizza_amount} {para.pizza_name} cỡ {para.pizza_size} đế {para.pizza_type} đến địa chỉ {para.pizza_address} đúng không ạ"
       ]
     },
     {
@@ -191,13 +191,13 @@
       "type": "bot",
       "match_regex": [],
       "message": [
-        "Đơn hàng của quý khách đã được xác nhận, bên {para.bot_name} sẽ cho người đi giao hàng cho quý khách ngay.Cảm ơn quý khách đã tin tưởng sử dụng pizza của {para.company_name}. Chúc quý khách ngon miệng!"
+        "Đơn hàng của quý khách đã được xác nhận, bên {para.bot_name} sẽ cho người đi giao hàng cho quý khách ngay.Cảm ơn quý khách đã tin tưởng sử dụng pizza của {para.company_name}. Chúc quý khách ngon miệng"
       ],
       "error_message": [
-        "Rất xin lỗi vì không hiểu yêu cầu của quý khách, {para.bot_name} sẽ chuyển máy qua điện thoại viên để hỗ trợ quý khách ạ!",
-        "{para.bot_name} lấy làm tiếc vì không hiểu yêu cầu của quý khách, ngay sau đây nhân viên tư vấn sẽ hỗ trợ quý khách",
+        "Rất xin lỗi vì không hiểu yêu cầu của quý khách, {para.bot_name} sẽ chuyển máy qua điện thoại viên để hỗ trợ quý khách ạ",
+        "{para.bot_name} lấy làm tiếc vì không hiểu yêu cầu của quý khách, ngay sau đây nhân viên tư vấn sẽ hỗ trợ anh chị",
         "Rất tiếc {para.bot_name} không hiểu yêu cầu của quý khách, sau đây {para.bot_name} sẽ chuyển máy cho điện thoại viên",
-        "Để việc phục vụ quý khách tốt hơn, sau đây nhân viên của {para.company_name} sẽ hỗ trợ quý khách"
+        "Để việc phục vụ quý khách tốt hơn, sau đây nhân viên của {para.company_name} sẽ hỗ trợ anh chị ạ"
       ]
     }
   ]

@@ -1,0 +1,58 @@
+{
+  "paras": {
+    "users": [
+      {
+        "{para.danh_xung}": "anh",
+        "{para.ho_va_ten}": "Nguyễn Văn Hiếu",
+        "{para.ten}": "Hiếu"
+      },
+      {
+        "{para.danh_xung}": "chị",
+        "{para.ho_va_ten}": "Phùng Thị Mai",
+        "{para.ten}": "Mai"
+      },
+      {
+        "{para.danh_xung}": "anh",
+        "{para.ho_va_ten}": "Bùi Văn Tuấn",
+        "{para.ten}": "Tuấn"
+      }
+    ]
+  },
+  "regex_para": "{para\\.[^}]+}",
+  "welcome_message": [
+    "Dạ, em chào {para.danh_xung} {para.ho_va_ten}, em là bot tư vấn căn hộ An Bình city. Dự án ngay cạnh Bộ công an số 36 Phạm Văn Đồng. Hiện nay bên em đang mở bán 80 vị trí đẹp nhất với căn 2 phòng ngủ giá chỉ 2 tỷ đồng, và chiết khấu lên đến 7%, trả chậm trong 12 tháng. Không biết {para.danh_xung} {para.ten} có quan tâm đến căn hộ này không vậy ạ?",
+    " chào {para.danh_xung} {para.ho_va_ten}, em là bot tư vấn căn hộ An Bình city. Dự án đắc địa nhất Hà Nội ngay cạnh Bộ công an. Bên em đang mở bán đợt đầu tiên với mức giá cực ưu đãi chỉ từ 2 tỷ một căn 2 phòng ngủ, không rõ {para.danh_xung} {para.ten} có nhu cầu tìm hiểu thêm thông tin không vậy ạ"
+  ],
+  "classify_regex": {
+    "busy": [
+      ".*bận.*",
+      ".*ồn.*",
+      ".*ngoài đường.*",
+      ".*họp.*",
+      ".*không tiện.*"
+    ],
+    "reject": [
+      ".*không.*",
+      ".*mua.*rồi.*",
+      ".*phiền.*",
+      ".*tiếc.*",
+      ".*điên.*",
+      ".*đừng có gọi.*"
+    ]
+  },
+  "fail_message": [
+    "Em xin ghi nhận thông tin, em rất xin lỗi {para.danh_xung} {para.ten}, chúc {para.danh_xung} một ngày tốt lành",
+    "Dạ, em rất xin lỗi đã làm phiền {para.danh_xung} {para.ten}, chúc {para.danh_xung} một ngày làm việc hiệu quả"
+  ],
+  "pass_message": [
+    "Dạ cảm ơn {para.danh_xung} {para.ten} đã quan tâm, nhân viên bên em sẽ gọi lại ngay để tư vấn chi tiết cho {para.danh_xung}. Chúc {para.danh_xung} một ngày tốt lành",
+    "Cảm ơn {para.danh_xung} {para.ten} đã quan tâm, sau đây em sẽ chuyển máy cho nhân viên để tư vấn chi tiết cho {para.danh_xung}."
+  ],
+  "busy_message": [
+    "Vâng, em cảm ơn {para.danh_xung} {para.ten}, bên em sẽ gọi lại cho {para.danh_xung} sau. Chúc {para.danh_xung} có một ngày làm việc hiệu quả",
+    "Dạ, nếu {para.danh_xung} {para.ten} đang bận, bên em sẽ gọi lại cho {para.danh_xung} sau. Chúc {para.danh_xung} một ngày tốt lành"
+  ],
+  "again_message": [
+    "Em rất xin lỗi đã làm phiền {para.danh_xung} {para.ten}, chúc {para.danh_xung} một ngày tốt lành"
+  ]
+}
